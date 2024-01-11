@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import Nav from "./components/Nav/Nav";
+import Footer from "./components/Footer/Footer";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getCsrfToken, mongoMe } from "./api/auth";
+import axios from "axios";
+import { useEffect } from "react";
 
 function App() {
+  const queryClient = useQueryClient();
+  const { data: user, error } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const data = await mongoMe();
+      return data;
+    },
+  });
+  const { data: csrfToken } = useQuery({
+    queryKey: ["csrfToken"],
+    queryFn: async () => {
+      const data = await getCsrfToken();
+      return data;
+    },
+  });
+  axios.defaults.withCredentials = true;
+  axios.defaults.headers.common["_csrf-token"] = csrfToken;
+  useEffect(() => {
+    if (error || !(user?.name || false))
+      queryClient.setQueryData(["user"], null);
+  }, [error]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Nav />
+      <Outlet />
+      <Footer />
+    </>
   );
 }
 

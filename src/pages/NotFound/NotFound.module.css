@@ -1,0 +1,14 @@
+.notFound {
+  width: 100%;
+  height: calc(100% - 150px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notFoundImg {
+  min-width: 500px;
+  width: 30%;
+}
+.notFoundImg img {
+  width: 100%;
+}

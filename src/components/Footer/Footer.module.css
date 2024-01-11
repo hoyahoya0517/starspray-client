@@ -1,0 +1,6 @@
+.footer {
+  position: relative;
+  background-color: aqua;
+  height: 100px;
+  z-index: 2222;
+}

@@ -1,0 +1,10 @@
+.product {
+  width: 100%;
+  min-height: calc(100% - 150px);
+  padding: 64px calc(100vw / 24);
+}
+.productWrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
