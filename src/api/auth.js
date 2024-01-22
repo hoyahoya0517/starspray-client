@@ -65,7 +65,14 @@ export async function mongoAddCart(id) {
     throw Error(error.response.data.message);
   }
 }
-
+export async function mongoUpdateCart(productId, su) {
+  try {
+    console.log(su);
+    await axios.post("/auth/cart/qty", { productId, su });
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+}
 /*----------------------------------*/
 
 export async function mongoMe() {

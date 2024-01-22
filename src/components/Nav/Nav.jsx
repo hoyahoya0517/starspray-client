@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Nav.module.css";
-import { BsList } from "react-icons/bs";
 import { useEffect } from "react";
 import { navOff, navOn } from "../../redux/redux";
 import NavMenu from "../NavMenu/NavMenu";
 import { useNavigate } from "react-router-dom";
-import { CiShoppingCart } from "react-icons/ci";
 import { useQueryClient } from "@tanstack/react-query";
+import { FaShoppingBag, FaBars, FaInstagram } from "react-icons/fa";
 
 export default function Nav() {
   const queryClient = useQueryClient();
@@ -18,34 +17,50 @@ export default function Nav() {
     dispatch(navOn());
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
   return (
-    <div className={styles.nav}>
-      <div className={styles.menu}>
-        <div className={styles.menu_list} onClick={navStateOn}>
-          <BsList size={45} />
+    <header className={styles.nav}>
+      <div className={styles.navWrapper}>
+        <div className={styles.menu}>
+          <button className={styles.menu_list} onClick={navStateOn}>
+            <FaBars size={20} />
+          </button>
+          <div
+            onClick={() => {
+              navigate("/cart");
+            }}
+            className={styles.menu_cart}
+          >
+            <button>
+              <FaShoppingBag size={20} />
+            </button>
+            {user ? (
+              user.cart.length === 0 ? null : (
+                <span className={styles.cart_icon}>{user.cart.length}</span>
+              )
+            ) : null}
+          </div>
         </div>
         <div
-          onClick={() => {
-            navigate("/cart");
-          }}
-          className={styles.menu_cart}
-        >
-          <CiShoppingCart size={45} />
-          <span>{user ? (user.cart ? user.cart.length : null) : null}</span>
-        </div>
-      </div>
-      <div className={styles.logo}>
-        <span
+          className={styles.logo}
           onClick={() => {
             navigate("/");
           }}
         >
-          logo
-        </span>
+          <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1705895162/letter/logo2_vr1sqb.png" />
+        </div>
+        <div className={styles.add}>
+          <div className={styles.add_margin}></div>
+          <div className={styles.insta}>
+            <button type="button">
+              <FaInstagram size={20} />
+            </button>
+          </div>
+        </div>
       </div>
       {navState && <NavMenu />}
-    </div>
+    </header>
   );
 }

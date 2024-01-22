@@ -1,17 +1,29 @@
 .registerComplete {
   width: 100%;
   height: auto;
-  min-height: calc(100% - 150px);
+  min-height: calc(100% - 120px);
+  padding: 64px 0;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+}
+.left {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  gap: 20px;
-  font-weight: 700;
+  grid-column: 3/11;
 }
-.goLogin span {
-  color: rgb(255, 255, 44);
+.left h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01rem;
+  color: var(--yellow-color);
+}
+.right {
+  grid-column: 15 / -3;
+}
+.right span {
+  display: flex;
+  font-size: 1rem;
   text-decoration: underline;
   text-underline-offset: 0.3em;
   cursor: pointer;

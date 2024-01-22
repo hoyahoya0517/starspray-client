@@ -3,15 +3,15 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { navOff } from "../../redux/redux";
 import PortOne from "@portone/browser-sdk/v2";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "../../api/auth";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { useNavigate } from "react-router-dom";
+import { getProductByCart } from "../../api/product";
+import CartCard from "../../components/CartCard/CartCard";
 
 export default function Cart() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData(["user"]);
   const {
     isLoading,
     data: userInfo,
@@ -20,6 +20,17 @@ export default function Cart() {
     queryKey: ["userInfo"],
     queryFn: async () => {
       const data = await getUserInfo();
+      return data;
+    },
+  });
+  const {
+    isLoading: isLoading2,
+    data: cart,
+    isError: isError2,
+  } = useQuery({
+    queryKey: ["cart"],
+    queryFn: async () => {
+      const data = await getProductByCart();
       return data;
     },
   });
@@ -33,8 +44,7 @@ export default function Cart() {
   const [zipcode, setZipcode] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
-  const [payButton, setPayButton] = useState("Login Required");
-  const [pleaseLogin, setPleaseLogin] = useState(false);
+  const [cartLength, setCartLength] = useState(0);
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -45,7 +55,6 @@ export default function Cart() {
     setAddress2(e.target.value);
   };
   const handleSearchAddress = () => {
-    if (pleaseLogin) return;
     setOnSearch((prev) => !prev);
   };
 
@@ -72,23 +81,19 @@ export default function Cart() {
     return <DaumPostcodeEmbed onComplete={handleComplete} />;
   }
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
   useEffect(() => {
     if (error) {
       setTimeout(() => {
         setError(false);
+        setErrorMessage("");
       }, 3000);
     }
   }, [error]);
   const handlePay = () => {};
-  const handleLoginRequired = () => {
-    navigate("/login");
-  };
   useEffect(() => {
-    if (!user || !userInfo) {
-      return setPleaseLogin(true);
-    }
     if (userInfo) {
       setName(userInfo.name);
       setPhone(userInfo.phone);
@@ -96,28 +101,62 @@ export default function Cart() {
       setZipcode(userInfo.zipcode ? userInfo.zipcode : "");
       setAddress1(userInfo.address1 ? userInfo.address1 : "");
       setAddress2(userInfo.address2 ? userInfo.address2 : "");
-      setPayButton("PAY");
     }
   }, [userInfo]);
   useEffect(() => {
-    if (isError) {
-      return setPleaseLogin(true);
-    }
-  }, [isError]);
-  if (isLoading) {
-    return <div className={styles.cart}></div>;
+    if (cart) setCartLength(cart.length);
+  }, [cart]);
+
+  if (isLoading || isLoading2) {
+    return (
+      <div className={styles.cart}>
+        <span></span>
+      </div>
+    );
+  }
+  if (isError || isError2) {
+    return (
+      <div className={styles.errorPage}>
+        <div className={styles.errorPage_left}>
+          <h1>로그인이 필요합니다</h1>
+        </div>
+        <div className={styles.errorPage_right}>
+          <span
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login
+          </span>
+        </div>
+      </div>
+    );
   }
   return (
     <div className={styles.cart}>
-      <div className={styles.left}></div>
+      <div className={styles.left}>
+        {cartLength === 0 ? (
+          <div className={styles.cartEmpty}>
+            <h1>담긴 상품이 없습니다</h1>
+          </div>
+        ) : (
+          <div className={styles.cartMain}>
+            {cart.map((product) => {
+              return <CartCard product={product} key={product.id} />;
+            })}
+          </div>
+        )}
+      </div>
       <div className={styles.right}>
         <div className={styles.profileWrap}>
+          <div className={styles.title}>
+            <span>BILLING INFORMATION</span>
+          </div>
           <div className={styles.main}>
             <div className={styles.mainInput}>
               <div>
                 <label htmlFor="name">Name*</label>
                 <input
-                  readOnly={pleaseLogin ? true : false}
                   value={name}
                   onChange={handleName}
                   maxLength="10"
@@ -128,7 +167,6 @@ export default function Cart() {
               <div>
                 <label htmlFor="phone">Phone*</label>
                 <input
-                  readOnly={pleaseLogin ? true : false}
                   value={phone}
                   onChange={handlePhone}
                   maxLength="11"
@@ -158,7 +196,7 @@ export default function Cart() {
                   />
                   <div className={styles.search}>
                     <button type="button" onClick={handleSearchAddress}>
-                      검색
+                      {onSearch ? "닫기" : "검색"}
                     </button>
                   </div>
                 </div>
@@ -191,13 +229,15 @@ export default function Cart() {
                   id="address2"
                 />
               </div>
+              <div className={styles.agree}>
+                <span>
+                  주문 내용을 확인하였으며 교환 환불 규정을 확인했습니다.
+                </span>
+              </div>
             </div>
             <div className={styles.mainButton}>
-              <button
-                type="button"
-                onClick={pleaseLogin ? handleLoginRequired : handlePay}
-              >
-                {payButton}
+              <button type="button" onClick={handlePay}>
+                PAY
               </button>
               {error && (
                 <div className={styles.error}>

@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 function App() {
   const queryClient = useQueryClient();
-  const { data: user, error } = useQuery({
+  const { data: user, isError } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const data = await mongoMe();
@@ -26,9 +26,9 @@ function App() {
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common["_csrf-token"] = csrfToken;
   useEffect(() => {
-    if (error || !(user?.name || false))
+    if (isError || !(user?.name || true))
       queryClient.setQueryData(["user"], null);
-  }, [error]);
+  }, [isError]);
   return (
     <>
       <Nav />

@@ -1,23 +1,75 @@
 .cart {
   width: 100%;
   height: auto;
-  min-height: calc(100% - 150px);
+  min-height: calc(100% - 120px);
+  padding: 64px 0;
   display: grid;
   grid-template-columns: repeat(24, 1fr);
+}
+.errorPage {
+  width: 100%;
+  height: auto;
+  min-height: calc(100% - 120px);
+  padding: 64px 0;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+}
+.errorPage_left {
+  display: flex;
+  flex-direction: column;
+  grid-column: 3/11;
+}
+.errorPage_left h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01rem;
+  color: var(--yellow-color);
+}
+.errorPage_right {
+  grid-column: 15 / -3;
+}
+.errorPage_right span {
+  display: flex;
+  font-size: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+  font-weight: 400;
+}
+.cartEmpty {
+  width: 100%;
+}
+.cartEmpty h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01rem;
+  color: var(--yellow-color);
 }
 .left {
   grid-column: 3 / 11;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px 0;
+}
+.cartMain {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .right {
   grid-column: 15 / -3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px 0;
+}
+.title {
+  display: flex;
+  width: 100%;
+  margin-bottom: 40px;
+  font-family: 700;
 }
 .profileWrap {
   width: 100%;
@@ -75,7 +127,7 @@
   outline: 0px;
   border: 0px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   letter-spacing: 2px;
   font-weight: 700;
   width: 15%;
@@ -93,6 +145,12 @@
   left: 0%;
   width: 100%;
   z-index: 2222;
+}
+.agree {
+  font-size: 1rem;
+  letter-spacing: 0em;
+  font-weight: 400;
+  line-height: 1.5em;
 }
 .mainButton {
   width: 100%;
@@ -118,15 +176,5 @@
   top: calc(65px);
   left: 0%;
   font-size: 1rem;
-  color: rgb(255, 255, 44);
-}
-.logout {
-  display: flex;
-}
-.logout span {
-  font-size: 1.2rem;
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
-  cursor: pointer;
-  font-weight: 400;
+  color: var(--yellow-color);
 }

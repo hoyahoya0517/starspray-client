@@ -1,9 +1,9 @@
 .productDetail {
   width: 100%;
-  min-height: calc(100% - 150px);
+  min-height: calc(100% - 120px);
+  padding: 64px 0;
   display: grid;
   grid-template-columns: repeat(24, 1fr);
-  padding: 64px 0;
 }
 .leftWrap {
   grid-column: 3 / 11;
@@ -11,7 +11,7 @@
 }
 .left {
   position: sticky;
-  top: 64px;
+  top: 120px;
   font-size: 1rem;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@
   top: calc(65px);
   left: 0%;
   font-size: 1rem;
-  color: rgb(255, 255, 44);
+  color: var(--yellow-color);
 }
 .addInfo {
   display: flex;

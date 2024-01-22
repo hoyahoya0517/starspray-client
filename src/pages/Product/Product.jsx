@@ -17,6 +17,7 @@ export default function Product() {
     staleTime: 1000 * 60 * 60,
   });
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
   if (isLoading) {

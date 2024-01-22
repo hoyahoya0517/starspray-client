@@ -17,3 +17,12 @@ export async function getProduct(id) {
     throw Error(error.response.data.message);
   }
 }
+
+export async function getProductByCart() {
+  try {
+    const json = await axios.get("/product/cart");
+    return json.data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+}

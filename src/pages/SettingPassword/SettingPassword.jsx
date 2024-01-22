@@ -31,12 +31,14 @@ export default function SettingPassword() {
     }
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
   useEffect(() => {
     if (error) {
       setTimeout(() => {
         setError(false);
+        setErrorMessage("");
       }, 3000);
     }
   }, [error]);

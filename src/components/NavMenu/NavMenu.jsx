@@ -3,9 +3,7 @@ import styles from "./NavMenu.module.css";
 import { navOff } from "../../redux/redux";
 import { BsXLg } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { PiPersonSimpleRunBold } from "react-icons/pi";
-
+import { useQueryClient } from "@tanstack/react-query";
 export default function NavMenu() {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]);
@@ -31,10 +29,7 @@ export default function NavMenu() {
                 navigate("/profile");
               }}
             >
-              {/* <div className={styles.navMenuPersonSvg}>
-                <PiPersonSimpleRunBold size={19} />
-              </div> */}
-              <span>{user.name}</span>
+              <span>ACCOUNT</span>
             </div>
           ) : (
             <span

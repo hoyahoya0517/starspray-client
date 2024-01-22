@@ -1,0 +1,52 @@
+.cartCard {
+  height: 160px;
+  display: grid;
+  grid-template-columns: 130px auto;
+}
+.left {
+  display: flex;
+}
+.left img {
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  font-size: 0.8rem;
+  gap: 3px;
+}
+.productTitle {
+  font-weight: 700;
+  cursor: pointer;
+}
+.qty {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+.qty span {
+  min-width: 60px;
+}
+.qty button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  border-radius: 0;
+  padding: 8px;
+  text-align: center;
+  background-color: transparent;
+}
+.remove {
+  cursor: pointer;
+}
+.error {
+  min-height: 20px;
+  color: var(--yellow-color);
+}

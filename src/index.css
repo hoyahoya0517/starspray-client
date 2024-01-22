@@ -18,7 +18,7 @@ body {
   width: 100%;
   height: 100vh;
   color: #121110;
-  font-family: "Poppins", "NotoSansKR", sans-serif;
+  font-family: "NotoSansKR", "Poppins", sans-serif !important;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -28,6 +28,7 @@ body {
 }
 #root {
   height: 100%;
+  --yellow-color: #fff54f;
 }
 a {
   text-decoration: none;

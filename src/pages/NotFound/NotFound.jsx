@@ -6,6 +6,7 @@ import { navOff } from "../../redux/redux";
 export default function NotFound() {
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
   return (

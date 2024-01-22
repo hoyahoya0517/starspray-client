@@ -37,9 +37,7 @@ export default function Profile() {
   const logoutMutate = useMutation({
     mutationFn: () => mongoLogout(),
     onSuccess() {
-      console.log("logout");
-      queryClient.setQueryData(["user"], null);
-      queryClient.removeQueries({ queryKey: ["userInfo"] });
+      queryClient.resetQueries();
       navigate("/");
     },
     onError(error) {
@@ -50,7 +48,7 @@ export default function Profile() {
   const updateMutate = useMutation({
     mutationFn: (user) => mongoUpdateProfile(user),
     onSuccess() {
-      queryClient.invalidateQueries(["userInfo"]);
+      queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       setOldPassword("");
       setNewPassword("");
       setErrorMessage("사용자 정보가 변경되었습니다");
@@ -135,12 +133,14 @@ export default function Profile() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
   useEffect(() => {
     if (error) {
       setTimeout(() => {
         setError(false);
+        setErrorMessage("");
       }, 3000);
     }
   }, [error]);
@@ -164,6 +164,9 @@ export default function Profile() {
     <div className={styles.profile}>
       <div className={styles.left}></div>
       <div className={styles.right}>
+        <div className={styles.title}>
+          <span>ACCOUNT INFORMATION</span>
+        </div>
         <div className={styles.profileWrap}>
           <form className={styles.main} onSubmit={handleUpdate}>
             <div className={styles.mainInput}>
@@ -209,7 +212,7 @@ export default function Profile() {
                   />
                   <div className={styles.search}>
                     <button type="button" onClick={handleSearchAddress}>
-                      검색
+                      {onSearch ? "닫기" : "검색"}
                     </button>
                   </div>
                 </div>

@@ -29,7 +29,8 @@ export default function ProductDetail() {
   const cartMutate = useMutation({
     mutationFn: (id) => mongoAddCart(id),
     onSuccess() {
-      queryClient.invalidateQueries(["user"]);
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.resetQueries({ queryKey: ["cart"] });
       setErrorMessage("장바구니에 상품을 담았습니다");
       return setError(true);
     },
@@ -59,12 +60,14 @@ export default function ProductDetail() {
     else return `${product.price}원`;
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
   useEffect(() => {
     if (error) {
       setTimeout(() => {
         setError(false);
+        setErrorMessage("");
       }, 3000);
     }
   }, [error]);
