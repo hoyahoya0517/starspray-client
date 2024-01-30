@@ -1,7 +1,7 @@
 .registerComplete {
   width: 100%;
   height: auto;
-  min-height: calc(100% - 120px);
+  min-height: calc(100% - 70px);
   padding: 64px 0;
   display: grid;
   grid-template-columns: repeat(24, 1fr);
@@ -9,7 +9,7 @@
 .left {
   display: flex;
   flex-direction: column;
-  grid-column: 3/11;
+  grid-column: 3/13;
 }
 .left h1 {
   font-size: 3rem;

@@ -49,7 +49,7 @@ export default function Nav() {
             navigate("/");
           }}
         >
-          <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1705895162/letter/logo2_vr1sqb.png" />
+          <span>로고넣어야됨</span>
         </div>
         <div className={styles.add}>
           <div className={styles.add_margin}></div>

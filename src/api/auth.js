@@ -56,6 +56,14 @@ export async function settingPassword(password, token) {
   }
 }
 
+export async function sendMoon(name, email, paymentId, moon) {
+  try {
+    await axios.post("/auth/moon", { name, email, paymentId, moon });
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+}
+
 /*----------------------------------*/
 
 export async function mongoAddCart(id) {
@@ -67,8 +75,33 @@ export async function mongoAddCart(id) {
 }
 export async function mongoUpdateCart(productId, su) {
   try {
-    console.log(su);
     await axios.post("/auth/cart/qty", { productId, su });
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+}
+
+export async function mongoCompleteCart() {
+  try {
+    await axios.get("/auth/cart/complete");
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+}
+/*----------------------------------*/
+export async function mongoGetOrders() {
+  try {
+    const json = await axios.get("/auth/getOrders");
+    return json.data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+}
+
+export async function mongoGetOrder(id) {
+  try {
+    const json = await axios.get(`/auth/getOrder/${id}`);
+    return json.data;
   } catch (error) {
     throw Error(error.response.data.message);
   }

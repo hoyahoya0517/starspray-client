@@ -1,7 +1,7 @@
 .cartCard {
   height: 160px;
   display: grid;
-  grid-template-columns: 130px auto;
+  grid-template-columns: 160px auto;
 }
 .left {
   display: flex;

@@ -68,9 +68,18 @@ export default function NavMenu() {
         </div>
         <div className={styles.bottom}>
           <div className={styles.menu_menu}>
-            <span>CUSTOMER SERVICE</span>
+            <span
+              onClick={() => {
+                navigate("/support");
+              }}
+            >
+              SUPPORT
+            </span>
           </div>
         </div>
+      </div>
+      <div className={styles.right}>
+        <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1706544300/letter/cctv_qs1ibi.webp" />
       </div>
     </div>
   );

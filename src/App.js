@@ -6,9 +6,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCsrfToken, mongoMe } from "./api/auth";
 import axios from "axios";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 function App() {
   const queryClient = useQueryClient();
+  const navState = useSelector((state) => state.nav);
   const { data: user, isError } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
@@ -16,19 +19,22 @@ function App() {
       return data;
     },
   });
-  const { data: csrfToken } = useQuery({
+  const { data: csrfToken, isError2 } = useQuery({
     queryKey: ["csrfToken"],
     queryFn: async () => {
       const data = await getCsrfToken();
       return data;
     },
   });
+
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common["_csrf-token"] = csrfToken;
+
+  const body = document.querySelector("body");
   useEffect(() => {
-    if (isError || !(user?.name || true))
-      queryClient.setQueryData(["user"], null);
-  }, [isError]);
+    if (navState) disableBodyScroll(body, { reserveScrollBarGap: true });
+    else enableBodyScroll(body);
+  }, [navState]);
   return (
     <>
       <Nav />

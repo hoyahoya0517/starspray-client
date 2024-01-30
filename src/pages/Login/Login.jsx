@@ -28,9 +28,13 @@ export default function Login() {
     setPassword(e.target.value);
   };
   const loginMutate = useMutation({
-    mutationFn: (user) => mongoLogin(user),
-    onSuccess() {
-      queryClient.resetQueries();
+    mutationFn: async (user) => await mongoLogin(user),
+    onSuccess(data) {
+      queryClient.setQueryData(["user"], data);
+      queryClient.removeQueries({ queryKey: ["userInfo"] });
+      queryClient.removeQueries({ queryKey: ["cart"] });
+      queryClient.removeQueries({ queryKey: ["orders"] });
+      queryClient.removeQueries({ queryKey: ["order"] });
       navigate("/");
     },
     onError(error) {

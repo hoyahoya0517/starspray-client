@@ -1,7 +1,7 @@
 .profile {
   width: 100%;
   height: auto;
-  min-height: calc(100% - 120px);
+  min-height: calc(100% - 70px);
   padding: 64px 0;
   display: grid;
   grid-template-columns: repeat(24, 1fr);
@@ -12,12 +12,25 @@
   flex-direction: column;
   align-items: center;
 }
-.title {
-  display: flex;
+.left_order {
   width: 100%;
-  margin-bottom: 40px;
-  font-family: 700;
 }
+.orderEmpty {
+  width: 100%;
+}
+.orderEmpty h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01rem;
+  color: var(--yellow-color);
+}
+.orderMain {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .right {
   grid-column: 15 / -3;
   display: flex;
@@ -28,6 +41,12 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+.title {
+  display: flex;
+  width: 100%;
+  margin-bottom: 40px;
+  font-family: 700;
 }
 .main {
   width: 100%;
@@ -122,7 +141,7 @@
   position: absolute;
   top: calc(65px);
   left: 0%;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: var(--yellow-color);
 }
 .logout {

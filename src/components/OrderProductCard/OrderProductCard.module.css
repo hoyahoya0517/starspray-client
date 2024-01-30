@@ -1,0 +1,25 @@
+.orderProductCard {
+  display: grid;
+  height: 160px;
+  grid-template-columns: 160px auto;
+}
+.left {
+  display: flex;
+}
+.left img {
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  font-size: 0.8rem;
+  gap: 3px;
+  justify-content: center;
+}
+.productTitle {
+  font-weight: 700;
+  cursor: pointer;
+}

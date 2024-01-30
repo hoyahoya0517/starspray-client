@@ -2,16 +2,17 @@ import styles from "./Cart.module.css";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { navOff } from "../../redux/redux";
-import PortOne from "@portone/browser-sdk/v2";
-import { useQuery } from "@tanstack/react-query";
-import { getUserInfo } from "../../api/auth";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserInfo, mongoCompleteCart, mongoMe } from "../../api/auth";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { useNavigate } from "react-router-dom";
 import { getProductByCart } from "../../api/product";
 import CartCard from "../../components/CartCard/CartCard";
+import { pay } from "../../iamport/iamport";
 
 export default function Cart() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     isLoading,
     data: userInfo,
@@ -34,9 +35,21 @@ export default function Cart() {
       return data;
     },
   });
+  const {
+    isLoading: isLoading3,
+    data: user,
+    isError3,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const data = await mongoMe();
+      return data;
+    },
+  });
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [firstInfo, setFirstInfo] = useState(true);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -45,6 +58,19 @@ export default function Cart() {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [cartLength, setCartLength] = useState(0);
+  const [sum, setSum] = useState(0);
+  const [shipping, setShipping] = useState(3000);
+  const [total, setTotal] = useState(0);
+  const userInfoMutate = useMutation({
+    mutationFn: () => mongoCompleteCart(),
+    onSuccess() {
+      queryClient.invalidateQueries();
+    },
+    onError(error) {
+      const message = error.message;
+      console.log(message);
+    },
+  });
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -57,7 +83,40 @@ export default function Cart() {
   const handleSearchAddress = () => {
     setOnSearch((prev) => !prev);
   };
-
+  const handlePay = async () => {
+    if (!name || !phone || !email || !zipcode || !address1 || !address2) {
+      setErrorMessage("결제정보를 입력해 주세요");
+      return setError(true);
+    }
+    if (!userInfo?.cart || cartLength === 0) {
+      setErrorMessage("장바구니에 상품을 담아주세요");
+      return setError(true);
+    }
+    const customerId = userInfo?.id;
+    if (!customerId) return;
+    const userCart = userInfo?.cart;
+    if (!userCart) return;
+    try {
+      await pay(
+        userCart,
+        name,
+        phone,
+        email,
+        zipcode,
+        address1,
+        address2,
+        total,
+        customerId
+      );
+      userInfoMutate.mutate();
+      navigate("./complete", { state: { payComplete: true, name, cart } });
+    } catch (error) {
+      const message = error.message;
+      if (message) setErrorMessage(message);
+      else setErrorMessage("결제에 문제가 발생했습니다");
+      return setError(true);
+    }
+  };
   function SearchAddress() {
     const handleComplete = (data) => {
       let fullAddress = data.address;
@@ -92,17 +151,31 @@ export default function Cart() {
       }, 3000);
     }
   }, [error]);
-  const handlePay = () => {};
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && firstInfo) {
       setName(userInfo.name);
       setPhone(userInfo.phone);
       setEmail(userInfo.email);
       setZipcode(userInfo.zipcode ? userInfo.zipcode : "");
       setAddress1(userInfo.address1 ? userInfo.address1 : "");
       setAddress2(userInfo.address2 ? userInfo.address2 : "");
+      setFirstInfo(false);
+    }
+    if (userInfo?.cart) {
+      let tmpSum = 0;
+      userInfo.cart.forEach((product) => {
+        tmpSum += product.price * product.qty;
+      });
+      setSum(tmpSum);
     }
   }, [userInfo]);
+  useEffect(() => {
+    if (sum >= 50000) setShipping(0);
+    else setShipping(3000);
+  }, [sum]);
+  useEffect(() => {
+    setTotal(sum + shipping);
+  }, [sum, shipping]);
   useEffect(() => {
     if (cart) setCartLength(cart.length);
   }, [cart]);
@@ -135,15 +208,33 @@ export default function Cart() {
   return (
     <div className={styles.cart}>
       <div className={styles.left}>
-        {cartLength === 0 ? (
-          <div className={styles.cartEmpty}>
-            <h1>담긴 상품이 없습니다</h1>
-          </div>
-        ) : (
-          <div className={styles.cartMain}>
-            {cart.map((product) => {
-              return <CartCard product={product} key={product.id} />;
-            })}
+        <div className={styles.left_cart}>
+          {cartLength === 0 ? (
+            <div className={styles.cartEmpty}>
+              <h1>담긴 상품이 없습니다</h1>
+            </div>
+          ) : (
+            <div className={styles.cartMain}>
+              {cart.map((product) => {
+                return <CartCard product={product} key={product.id} />;
+              })}
+            </div>
+          )}
+        </div>
+        {cartLength === 0 ? null : (
+          <div className={styles.left_info}>
+            <div>
+              <span>상품금액</span>
+              <span>{sum}</span>
+            </div>
+            <div>
+              <span>배송비</span>
+              <span>{shipping}</span>
+            </div>
+            <div>
+              <span>총 주문금액</span>
+              <span>{total}</span>
+            </div>
           </div>
         )}
       </div>

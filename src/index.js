@@ -19,6 +19,9 @@ import Profile from "./pages/Profile/Profile";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Cart from "./pages/Cart/Cart";
 import SettingPassword from "./pages/SettingPassword/SettingPassword";
+import OrderComplete from "./pages/OrderComplete/OrderComplete";
+import Order from "./pages/Order/Order";
+import Support from "./pages/Support/Support";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({
@@ -55,7 +58,10 @@ root.render(
               element={<SettingPassword />}
             />
             <Route path="profile" element={<Profile />} />
+            <Route path="profile/order/:paymentId" element={<Order />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="cart/complete" element={<OrderComplete />} />\
+            <Route path="support" element={<Support />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

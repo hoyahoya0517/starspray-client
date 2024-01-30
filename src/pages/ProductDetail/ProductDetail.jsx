@@ -30,6 +30,7 @@ export default function ProductDetail() {
     mutationFn: (id) => mongoAddCart(id),
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       queryClient.resetQueries({ queryKey: ["cart"] });
       setErrorMessage("장바구니에 상품을 담았습니다");
       return setError(true);
@@ -56,7 +57,7 @@ export default function ProductDetail() {
     }
   };
   const priceSet = () => {
-    if (Number(product.qty) === 0) return "SOLD OUT";
+    if (Number(product.qty) <= 0) return "SOLD OUT";
     else return `${product.price}원`;
   };
   useEffect(() => {

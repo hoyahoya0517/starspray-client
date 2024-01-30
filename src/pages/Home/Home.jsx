@@ -14,7 +14,7 @@ export default function Home() {
     <div className={styles.home}>
       <div className={styles.mainVideo}>
         <video autoPlay muted loop playsInline className={styles.video}>
-          <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1703048422/letter/videoplayback.CUT.05_16-05_30_oexws3.mp4"></source>
+          <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1706083875/letter/video3_a9qh6s.mp4"></source>
         </video>
       </div>
     </div>

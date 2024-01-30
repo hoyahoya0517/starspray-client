@@ -19,7 +19,7 @@ export default function CartCard({ product }) {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [price, setPrice] = useState(
-    Number(product.qty) === 0 ? "SOLD OUT" : product.price
+    Number(product.qty) <= 0 ? "SOLD OUT" : product.price
   );
   const qtyMutate = useMutation({
     mutationFn: ({ productId, su }) => mongoUpdateCart(productId, su),
@@ -29,7 +29,6 @@ export default function CartCard({ product }) {
       queryClinet.invalidateQueries({ queryKey: ["cart"] });
     },
     onError(error) {
-      console.log(error);
       setErrorMessage(error.message);
       return setError(true);
     },
@@ -103,14 +102,16 @@ export default function CartCard({ product }) {
             <FiPlus size={12} />
           </button>
         </div>
-        <p
-          className={styles.remove}
-          onClick={() => {
-            qtyHandle(0);
-          }}
-        >
-          삭제
-        </p>
+        <div>
+          <span
+            className={styles.remove}
+            onClick={() => {
+              qtyHandle(0);
+            }}
+          >
+            삭제
+          </span>
+        </div>
         <p className={styles.error}>{error ? errorMessage : ""}</p>
       </div>
     </div>

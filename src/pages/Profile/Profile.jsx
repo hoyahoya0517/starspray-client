@@ -4,12 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { navOff } from "../../redux/redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserInfo, mongoLogout, mongoUpdateProfile } from "../../api/auth";
+import {
+  getUserInfo,
+  mongoGetOrders,
+  mongoLogout,
+  mongoUpdateProfile,
+} from "../../api/auth";
 import DaumPostcodeEmbed from "react-daum-postcode";
+import OrderCard from "../../components/OrderCard/OrderCard";
 
 export default function Profile() {
   const queryClient = useQueryClient();
-  const user = queryClient.getQueryData(["user"]);
   const {
     isLoading,
     data: userInfo,
@@ -18,6 +23,17 @@ export default function Profile() {
     queryKey: ["userInfo"],
     queryFn: async () => {
       const data = await getUserInfo();
+      return data;
+    },
+  });
+  const {
+    isLoading2,
+    data: orders,
+    isError2,
+  } = useQuery({
+    queryKey: ["orders"],
+    queryFn: async () => {
+      const data = await mongoGetOrders();
       return data;
     },
   });
@@ -34,10 +50,15 @@ export default function Profile() {
   const [zipcode, setZipcode] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
+  const [orderLength, setOrderLength] = useState(0);
   const logoutMutate = useMutation({
     mutationFn: () => mongoLogout(),
     onSuccess() {
-      queryClient.resetQueries();
+      queryClient.resetQueries({ queryKey: ["user"] });
+      queryClient.removeQueries({ queryKey: ["userInfo"] });
+      queryClient.removeQueries({ queryKey: ["cart"] });
+      queryClient.removeQueries({ queryKey: ["orders"] });
+      queryClient.removeQueries({ queryKey: ["order"] });
       navigate("/");
     },
     onError(error) {
@@ -155,19 +176,36 @@ export default function Profile() {
     }
   }, [userInfo]);
   useEffect(() => {
+    if (orders) setOrderLength(orders ? orders.length : 0);
+  }, [orders]);
+  useEffect(() => {
     if (isError) navigate("/");
   }, [isError]);
-  if (isLoading) {
+  if (isLoading || isLoading2) {
     return <div className={styles.profile}></div>;
   }
   return (
     <div className={styles.profile}>
-      <div className={styles.left}></div>
-      <div className={styles.right}>
-        <div className={styles.title}>
-          <span>ACCOUNT INFORMATION</span>
+      <div className={styles.left}>
+        <div className={styles.left_order}>
+          {orderLength === 0 ? (
+            <div className={styles.orderEmpty}>
+              <h1>주문내역이 없습니다</h1>
+            </div>
+          ) : (
+            <div className={styles.orderMain}>
+              {orders.map((order) => {
+                return <OrderCard order={order} key={order.paymentId} />;
+              })}
+            </div>
+          )}
         </div>
+      </div>
+      <div className={styles.right}>
         <div className={styles.profileWrap}>
+          <div className={styles.title}>
+            <span>ACCOUNT INFORMATION</span>
+          </div>
           <form className={styles.main} onSubmit={handleUpdate}>
             <div className={styles.mainInput}>
               <div>
@@ -253,6 +291,7 @@ export default function Profile() {
                   maxLength="20"
                   type="password"
                   id="oldPassword"
+                  autoComplete="off"
                 />
               </div>
               <div>
@@ -263,6 +302,7 @@ export default function Profile() {
                   maxLength="20"
                   type="password"
                   id="newPassword"
+                  autoComplete="off"
                 />
               </div>
             </div>

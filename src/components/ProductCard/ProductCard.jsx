@@ -20,7 +20,7 @@ export default function ProductCard({ product }) {
   };
   return (
     <div onClick={handleNavigate} className={styles.productCard}>
-      <div className={styles.productImg}>
+      {/* <div className={styles.productImg}>
         <img
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
@@ -30,6 +30,9 @@ export default function ProductCard({ product }) {
       <div className={styles.productInfo}>
         <span>{product.name}</span>
         <span>{priceSet()}</span>
+      </div> */}
+      <div className={styles.productImg}>
+        <img src={`${product.img[0]}`} />
       </div>
     </div>
   );
