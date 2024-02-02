@@ -1,0 +1,46 @@
+.adminProducts {
+  width: 100%;
+  height: auto;
+  min-height: calc(100% - 70px);
+  padding: 64px calc(100vw / 12);
+  display: flex;
+  flex-direction: column;
+}
+.addProduct {
+  width: 100%;
+  display: flex;
+  padding-bottom: 20px;
+  border-bottom: 1px solid red;
+}
+.main {
+  flex-basis: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.main_div {
+  display: flex;
+  justify-content: space-between;
+}
+.main_div input {
+  width: 60%;
+}
+.main_div textarea {
+  resize: none;
+  width: 60%;
+}
+.right {
+  flex-basis: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.right button {
+  width: 80%;
+  height: 50%;
+}
+.adminProductsMap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}

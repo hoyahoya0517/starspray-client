@@ -1,0 +1,15 @@
+.admin {
+  width: 100%;
+  height: auto;
+  min-height: calc(100% - 70px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.admin span {
+  font-size: 3rem;
+  cursor: pointer;
+  color: var(--yellow-color);
+}

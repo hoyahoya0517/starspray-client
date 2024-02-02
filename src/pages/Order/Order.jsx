@@ -80,6 +80,14 @@ export default function Order() {
             <span>주문 날짜</span>
             <span>{dayjs(Number(order.orderDate)).format("YYYY.M.D")}</span>
           </div>
+          {order.cart.map((product) => {
+            return (
+              <div key={product.id}>
+                <span>{product.name}</span>
+                <span>{`수량 : ${product.qty}`}</span>
+              </div>
+            );
+          })}
           <div>
             <span>총 결제금액</span>
             <span>{order?.total}</span>

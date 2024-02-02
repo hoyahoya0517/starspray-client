@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 import { navOff } from "../../redux/redux";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { mongoLogin } from "../../api/auth";
+import { mongoLogin, mongoMe } from "../../api/auth";
+import { motion } from "framer-motion";
 
 export default function Login() {
-  const { data: user } = useQuery({
+  const { isLoading, data: user } = useQuery({
     queryKey: ["user"],
-    queryFn: async () => {},
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 10,
-    retry: 1,
+    queryFn: async () => {
+      const data = await mongoMe();
+      return data;
+    },
   });
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -70,6 +71,9 @@ export default function Login() {
   useEffect(() => {
     if (user) navigate("/");
   }, [user]);
+  if (isLoading) {
+    return <div className={styles.login}></div>;
+  }
   return (
     <div className={styles.login}>
       <div className={styles.loginWrap}>
@@ -98,9 +102,29 @@ export default function Login() {
           <div className={styles.mainButton}>
             <button type="submit">LOGIN</button>
             {error && (
-              <div className={styles.error}>
+              <motion.div
+                style={{
+                  fontSize: "2rem",
+                  zIndex: "2",
+                  color: "#fff54f",
+                  transform: "translate(-50%, -50%)",
+                }}
+                initial={{
+                  position: "fixed",
+                  top: "-20%",
+                  left: "50%",
+                }}
+                animate={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                }}
+                transition={{
+                  duration: 1.2,
+                }}
+              >
                 <span>{errorMessage}</span>
-              </div>
+              </motion.div>
             )}
           </div>
         </form>

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { getProductByCart } from "../../api/product";
 import CartCard from "../../components/CartCard/CartCard";
 import { pay } from "../../iamport/iamport";
+import { motion } from "framer-motion";
 
 export default function Cart() {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export default function Cart() {
   const [address2, setAddress2] = useState("");
   const [cartLength, setCartLength] = useState(0);
   const [sum, setSum] = useState(0);
-  const [shipping, setShipping] = useState(3000);
+  const [shipping, setShipping] = useState(0);
   const [total, setTotal] = useState(0);
   const userInfoMutate = useMutation({
     mutationFn: () => mongoCompleteCart(),
@@ -68,7 +69,8 @@ export default function Cart() {
     },
     onError(error) {
       const message = error.message;
-      console.log(message);
+      setErrorMessage(message);
+      return setError(true);
     },
   });
   const handleName = (e) => {
@@ -111,6 +113,7 @@ export default function Cart() {
       userInfoMutate.mutate();
       navigate("./complete", { state: { payComplete: true, name, cart } });
     } catch (error) {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
       const message = error.message;
       if (message) setErrorMessage(message);
       else setErrorMessage("결제에 문제가 발생했습니다");
@@ -169,10 +172,10 @@ export default function Cart() {
       setSum(tmpSum);
     }
   }, [userInfo]);
-  useEffect(() => {
-    if (sum >= 50000) setShipping(0);
-    else setShipping(3000);
-  }, [sum]);
+  // useEffect(() => {
+  //   if (sum >= 50000) setShipping(0);
+  //   else setShipping(3000);
+  // }, [sum]);
   useEffect(() => {
     setTotal(sum + shipping);
   }, [sum, shipping]);
@@ -331,9 +334,29 @@ export default function Cart() {
                 PAY
               </button>
               {error && (
-                <div className={styles.error}>
+                <motion.div
+                  style={{
+                    fontSize: "2rem",
+                    zIndex: "2",
+                    color: "#fff54f",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  initial={{
+                    position: "fixed",
+                    top: "-20%",
+                    left: "50%",
+                  }}
+                  animate={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                  }}
+                  transition={{
+                    duration: 1.2,
+                  }}
+                >
                   <span>{errorMessage}</span>
-                </div>
+                </motion.div>
               )}
             </div>
           </div>

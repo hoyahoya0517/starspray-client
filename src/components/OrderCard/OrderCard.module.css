@@ -25,6 +25,9 @@
   flex-direction: center;
   align-items: center;
 }
+.complete {
+  color: red;
+}
 .refund {
   color: var(--yellow-color);
 }

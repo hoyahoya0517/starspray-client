@@ -1,0 +1,13 @@
+.adminAuth {
+  width: 100%;
+  height: auto;
+  min-height: calc(100% - 70px);
+  padding: 64px calc(100vw / 12);
+  display: flex;
+  flex-direction: column;
+}
+.adminAuthMap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}

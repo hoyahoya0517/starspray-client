@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function OrderCard({ order }) {
   const navigate = useNavigate();
   const refund = order.refund;
+  const complete = order.complete;
   const dayjsDate = dayjs(Number(order.orderDate)).format("YYYY.M.D");
   return (
     <div className={styles.orderCard}>
@@ -21,13 +22,22 @@ export default function OrderCard({ order }) {
         </span>
       </div>
       <div className={styles.info}>
-        {refund ? (
+        {!complete ? (
+          <span className={styles.complete}>결제 상태 : 결제 실패</span>
+        ) : refund ? (
           <span className={styles.refund}>반품 완료</span>
         ) : (
           <span className={styles.shipping}>
             {`주문 상태 : ${order.shipping}`}
           </span>
         )}
+        {/* {refund ? (
+          <span className={styles.refund}>반품 완료</span>
+        ) : (
+          <span className={styles.shipping}>
+            {`주문 상태 : ${order.shipping}`}
+          </span>
+        )} */}
       </div>
       <div className={styles.total}>
         <span>{`총 결제금액 : ${order.total}`}</span>

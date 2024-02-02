@@ -12,6 +12,7 @@ import {
 } from "../../api/auth";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import OrderCard from "../../components/OrderCard/OrderCard";
+import { motion } from "framer-motion";
 
 export default function Profile() {
   const queryClient = useQueryClient();
@@ -194,9 +195,14 @@ export default function Profile() {
             </div>
           ) : (
             <div className={styles.orderMain}>
-              {orders.map((order) => {
-                return <OrderCard order={order} key={order.paymentId} />;
-              })}
+              <div className={styles.title}>
+                <span>ORDERS</span>
+              </div>
+              <div className={styles.main}>
+                {orders.map((order) => {
+                  return <OrderCard order={order} key={order.paymentId} />;
+                })}
+              </div>
             </div>
           )}
         </div>
@@ -292,6 +298,7 @@ export default function Profile() {
                   type="password"
                   id="oldPassword"
                   autoComplete="off"
+                  placeholder="비밀번호 변경 시에만 입력"
                 />
               </div>
               <div>
@@ -303,15 +310,36 @@ export default function Profile() {
                   type="password"
                   id="newPassword"
                   autoComplete="off"
+                  placeholder="비밀번호 변경 시에만 입력"
                 />
               </div>
             </div>
             <div className={styles.mainButton}>
               <button type="submit">UPDATE ACCOUNT</button>
               {error && (
-                <div className={styles.error}>
+                <motion.div
+                  style={{
+                    fontSize: "2rem",
+                    zIndex: "2",
+                    color: "#fff54f",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  initial={{
+                    position: "fixed",
+                    top: "-20%",
+                    left: "50%",
+                  }}
+                  animate={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                  }}
+                  transition={{
+                    duration: 1.2,
+                  }}
+                >
                   <span>{errorMessage}</span>
-                </div>
+                </motion.div>
               )}
             </div>
           </form>

@@ -36,6 +36,7 @@ a {
 input,
 textarea,
 button {
+  font-size: 1rem;
   font-family: "NotoSansKR", "Poppins", sans-serif !important;
   appearance: none;
   border-radius: 0;

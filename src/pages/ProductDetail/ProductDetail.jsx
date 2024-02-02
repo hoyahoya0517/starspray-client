@@ -6,6 +6,7 @@ import { navOff } from "../../redux/redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProduct } from "../../api/product";
 import { mongoAddCart } from "../../api/auth";
+import { motion } from "framer-motion";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ export default function ProductDetail() {
   };
   const priceSet = () => {
     if (Number(product.qty) <= 0) return "SOLD OUT";
-    else return `${product.price}원`;
+    else return `${product.price}`;
   };
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -94,9 +95,29 @@ export default function ProductDetail() {
               ADD TO CART
             </button>
             {error && (
-              <div className={styles.error}>
+              <motion.div
+                style={{
+                  fontSize: "2rem",
+                  zIndex: "2",
+                  color: "#fff54f",
+                  transform: "translate(-50%, -50%)",
+                }}
+                initial={{
+                  position: "fixed",
+                  top: "-20%",
+                  left: "50%",
+                }}
+                animate={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                }}
+                transition={{
+                  duration: 1.2,
+                }}
+              >
                 <span>{errorMessage}</span>
-              </div>
+              </motion.div>
             )}
           </div>
           <div className={styles.addInfo}>

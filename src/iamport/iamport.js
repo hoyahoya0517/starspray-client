@@ -30,11 +30,10 @@ export async function pay(
     total,
     customerId,
     complete: false,
-    shipping: "주문 확인 중",
     refund: false,
+    shipping: "주문 실패",
   };
   await checkCart(cart);
-  await mongoNewOrder(order);
   const response = await PortOne.requestPayment({
     // 고객사 storeId로 변경해주세요.
     storeId: "store-d53f97da-1eb8-4d33-b8a5-f835292f5668",
@@ -61,7 +60,7 @@ export async function pay(
   if (response.code != null) {
     throw Error("결제에 문제가 발생했습니다");
   }
+  await mongoNewOrder(order);
   await orderComplete(paymentId);
-  order.complete = true;
   await payCompleteCart(cart);
 }

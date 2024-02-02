@@ -187,10 +187,10 @@
   color: white;
   background-color: black;
 }
-.error {
+/* .error {
   position: absolute;
   top: calc(65px);
   left: 0%;
   font-size: 1.2rem;
   color: var(--yellow-color);
-}
+} */

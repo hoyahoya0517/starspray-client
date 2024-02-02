@@ -22,6 +22,10 @@ import SettingPassword from "./pages/SettingPassword/SettingPassword";
 import OrderComplete from "./pages/OrderComplete/OrderComplete";
 import Order from "./pages/Order/Order";
 import Support from "./pages/Support/Support";
+import Admin from "./pages/Admin/Admin";
+import AdminProducts from "./pages/AdminProducts/AdminProducts";
+import AdminOrders from "./pages/AdminOrders/AdminOrders";
+import AdminAuth from "./pages/AdminAuth/AdminAuth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({
@@ -62,6 +66,10 @@ root.render(
             <Route path="cart" element={<Cart />} />
             <Route path="cart/complete" element={<OrderComplete />} />\
             <Route path="support" element={<Support />} />
+            <Route path="admin" element={<Admin />} />
+            <Route path="admin/products" element={<AdminProducts />} />
+            <Route path="admin/orders" element={<AdminOrders />} />
+            <Route path="admin/auth" element={<AdminAuth />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

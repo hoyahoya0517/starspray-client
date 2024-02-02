@@ -3,6 +3,7 @@ import styles from "./Support.module.css";
 import { useDispatch } from "react-redux";
 import { navOff } from "../../redux/redux";
 import { sendMoon } from "../../api/auth";
+import { motion } from "framer-motion";
 
 export default function Support() {
   const dispatch = useDispatch();
@@ -104,9 +105,29 @@ export default function Support() {
             <div className={styles.mainButton}>
               <button type="submit">확인</button>
               {error && (
-                <div className={styles.error}>
+                <motion.div
+                  style={{
+                    fontSize: "2rem",
+                    zIndex: "2",
+                    color: "#fff54f",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  initial={{
+                    position: "fixed",
+                    top: "-20%",
+                    left: "50%",
+                  }}
+                  animate={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                  }}
+                  transition={{
+                    duration: 1.2,
+                  }}
+                >
                   <span>{errorMessage}</span>
-                </div>
+                </motion.div>
               )}
             </div>
           </form>
