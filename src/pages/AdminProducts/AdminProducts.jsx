@@ -23,9 +23,9 @@ export default function AdminProducts() {
     },
   });
   const { data: products, isLoading2 } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", "all"],
     queryFn: async () => {
-      const data = await getProducts();
+      const data = await getProducts("all");
       return data;
     },
   });
@@ -49,6 +49,7 @@ export default function AdminProducts() {
     },
   });
   const handleAddProduct = async () => {
+    setError(false);
     if (!price.trim()) {
       setErrorMessage("추가할 물건의 가격을 입력하세요");
       return setError(true);
@@ -160,23 +161,20 @@ export default function AdminProducts() {
       {error && (
         <motion.div
           style={{
-            fontSize: "2rem",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "2.5rem",
             zIndex: "2",
             color: "#fff54f",
-            transform: "translate(-50%, -50%)",
-          }}
-          initial={{
             position: "fixed",
             top: "-20%",
             left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
-          animate={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-          }}
+          animate={{ top: "20%", left: "50%" }}
           transition={{
-            duration: 1.2,
+            duration: 0.5,
           }}
         >
           <span>{errorMessage}</span>

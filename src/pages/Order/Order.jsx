@@ -76,6 +76,12 @@ export default function Order() {
               <span>반품 완료</span>
             </div>
           )}
+          {order?.traking && (
+            <div>
+              <span>CJ대한통운</span>
+              <span>{order?.traking}</span>
+            </div>
+          )}
           <div>
             <span>주문 날짜</span>
             <span>{dayjs(Number(order.orderDate)).format("YYYY.M.D")}</span>
@@ -83,14 +89,18 @@ export default function Order() {
           {order.cart.map((product) => {
             return (
               <div key={product.id}>
-                <span>{product.name}</span>
-                <span>{`수량 : ${product.qty}`}</span>
+                <span>{`${product.name} / 수량 : ${product.qty}`}</span>
+                <span>{`₩${Number(product.price) * Number(product.qty)}`}</span>
               </div>
             );
           })}
           <div>
+            <span>배송비</span>
+            <span>{`₩${order?.delivery}`}</span>
+          </div>
+          <div>
             <span>총 결제금액</span>
-            <span>{order?.total}</span>
+            <span>{`₩${order?.total}`}</span>
           </div>
           <span className={styles.delivery}>배송 정보</span>
           <div>

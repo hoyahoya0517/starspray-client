@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProduct } from "../../api/product";
 import { mongoAddCart } from "../../api/auth";
 import { motion } from "framer-motion";
+import NotFoundComponent from "../../components/NotFoundComponent/NotFoundComponent";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ export default function ProductDetail() {
     },
   });
   const handleAddCart = () => {
+    setError(false);
     try {
       cartMutate.mutate(id);
     } catch (error) {
@@ -56,10 +58,6 @@ export default function ProductDetail() {
       setErrorMessage(error.message);
       return setError(true);
     }
-  };
-  const priceSet = () => {
-    if (Number(product.qty) <= 0) return "SOLD OUT";
-    else return `${product.price}`;
   };
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,11 +71,14 @@ export default function ProductDetail() {
       }, 3000);
     }
   }, [error]);
-  useEffect(() => {
-    if (isError) return navigate("/");
-  }, [isError]);
   if (isLoading) {
     return <div className={styles.productDetail}></div>;
+  }
+  if (isError) {
+    return <NotFoundComponent />;
+  }
+  if (!product) {
+    return <NotFoundComponent />;
   }
   return (
     <div className={styles.productDetail}>
@@ -85,7 +86,11 @@ export default function ProductDetail() {
         <div className={styles.left}>
           <div className={styles.info}>
             <span>{product.name}</span>
-            <span>{priceSet()}</span>
+            <span
+              className={Number(product.qty) <= 0 ? `${styles.soldout}` : ""}
+            >
+              {Number(product.qty) <= 0 ? "SOLD OUT" : `₩${product.price}`}
+            </span>
           </div>
           <div className={styles.size}>
             <span>{product.size}</span>
@@ -97,23 +102,23 @@ export default function ProductDetail() {
             {error && (
               <motion.div
                 style={{
-                  fontSize: "2rem",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: "2.5rem",
                   zIndex: "2",
                   color: "#fff54f",
-                  transform: "translate(-50%, -50%)",
-                }}
-                initial={{
                   position: "fixed",
                   top: "-20%",
                   left: "50%",
+                  transform: "translate(-50%, -50%)",
                 }}
-                animate={{
-                  position: "fixed",
-                  top: "50%",
-                  left: "50%",
-                }}
+                animate={{ top: "20%", left: "50%" }}
                 transition={{
-                  duration: 1.2,
+                  duration: 0.5,
                 }}
               >
                 <span>{errorMessage}</span>
@@ -134,12 +139,9 @@ export default function ProductDetail() {
                 <span>배송 안내</span>
               </div>
               <div className={styles.info_main}>
-                <span>
-                  일본에서 1995년 10월부터 1996년 3월까지 총 26화로 방송된
-                  오리지널 애니메이션과 이후 파생된 미디어 믹스. 보통 ‘신세기
-                  에반게리온’이라고 하면 1995년작 애니메이션을 말한다. 통상
-                  부르는 약칭은 '에바'.
-                </span>
+                <p>배송 지역 : 전국 (일부 지역 제외)</p>
+                <p>배송비 : 30,000원 미만 결제 시 배송비 3000원</p>
+                <p>배송 기간 : 배송은 1~3일 정도 소요됩니다.</p>
               </div>
             </div>
             <div className={styles.refundInfo}>
@@ -147,12 +149,17 @@ export default function ProductDetail() {
                 <span>반품 안내</span>
               </div>
               <div className={styles.info_main}>
-                <span>
-                  일본에서 1995년 10월부터 1996년 3월까지 총 26화로 방송된
-                  오리지널 애니메이션과 이후 파생된 미디어 믹스. 보통 ‘신세기
-                  에반게리온’이라고 하면 1995년작 애니메이션을 말한다. 통상
-                  부르는 약칭은 '에바'.
-                </span>
+                <p>반품 요청은 7일 이내에 가능합니다.</p>
+                <p>
+                  단순 변심으로 인한 교환/반품 신청 시 택배비용은 고객님
+                  부담이오니 이점 양해 바랍니다.
+                </p>
+                <p>빈티지 상품은 교환/반품이 불가능합니다.</p>
+                <p>
+                  단, 가품이거나 사진상으로 보이지 않는 심각한 손상이 있는
+                  경우에는 상품을 공급받으신 날로부터 7일 이내에 반품이
+                  가능합니다.
+                </p>
               </div>
             </div>
           </div>

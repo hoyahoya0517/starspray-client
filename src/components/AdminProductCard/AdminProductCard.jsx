@@ -44,6 +44,7 @@ export default function AdminProductCard({ product }) {
     },
   });
   const handleUpdateProduct = async (dateUpdate) => {
+    setError(false);
     if (!String(price).trim()) {
       setErrorMessage("수정할 물건의 가격을 입력하세요");
       return setError(true);
@@ -67,6 +68,7 @@ export default function AdminProductCard({ product }) {
     productAddMutate.mutate(updateProduct);
   };
   const handleDeleteProduct = () => {
+    setError(false);
     const go = window.confirm("물건을 삭제합니까?");
     if (go) productDeleteMutate.mutate(product.id);
     return;
@@ -166,23 +168,20 @@ export default function AdminProductCard({ product }) {
       {error && (
         <motion.div
           style={{
-            fontSize: "2rem",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "2.5rem",
             zIndex: "2",
             color: "#fff54f",
-            transform: "translate(-50%, -50%)",
-          }}
-          initial={{
             position: "fixed",
             top: "-20%",
             left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
-          animate={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-          }}
+          animate={{ top: "20%", left: "50%" }}
           transition={{
-            duration: 1.2,
+            duration: 0.5,
           }}
         >
           <span>{errorMessage}</span>

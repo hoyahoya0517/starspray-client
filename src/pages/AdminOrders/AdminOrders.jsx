@@ -27,8 +27,6 @@ export default function AdminOrders() {
       return data;
     },
   });
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
     if (!isLoading) {
       if (!(user?.isAdmin ? user.isAdmin : false)) navigate("/");
@@ -48,31 +46,6 @@ export default function AdminOrders() {
             return <AdminOrderCard order={order} key={order.paymentId} />;
           })}
       </div>
-      {error && (
-        <motion.div
-          style={{
-            fontSize: "2rem",
-            zIndex: "2",
-            color: "#fff54f",
-            transform: "translate(-50%, -50%)",
-          }}
-          initial={{
-            position: "fixed",
-            top: "-20%",
-            left: "50%",
-          }}
-          animate={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-          }}
-          transition={{
-            duration: 1.2,
-          }}
-        >
-          <span>{errorMessage}</span>
-        </motion.div>
-      )}
     </div>
   );
 }

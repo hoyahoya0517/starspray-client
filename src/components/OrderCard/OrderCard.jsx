@@ -40,7 +40,7 @@ export default function OrderCard({ order }) {
         )} */}
       </div>
       <div className={styles.total}>
-        <span>{`총 결제금액 : ${order.total}`}</span>
+        <span>{`총 결제금액 : ₩${order.total}`}</span>
       </div>
     </div>
   );

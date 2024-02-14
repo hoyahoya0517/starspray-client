@@ -26,6 +26,7 @@ import Admin from "./pages/Admin/Admin";
 import AdminProducts from "./pages/AdminProducts/AdminProducts";
 import AdminOrders from "./pages/AdminOrders/AdminOrders";
 import AdminAuth from "./pages/AdminAuth/AdminAuth";
+import StarSpray from "./pages/StarSpray/StarSpray";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({
@@ -47,7 +48,8 @@ root.render(
         <Routes>
           <Route path="/*" element={<App />}>
             <Route index element={<Home />} />
-            <Route path="product" element={<Product />} />
+            <Route path="info" element={<StarSpray />} />
+            <Route path="products/:category" element={<Product />} />
             <Route path="product/:id" element={<ProductDetail />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />

@@ -19,7 +19,7 @@ export default function CartCard({ product }) {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [price, setPrice] = useState(
-    Number(product.qty) <= 0 ? "SOLD OUT" : product.price
+    Number(product.qty) <= 0 ? "SOLD OUT" : `₩${product.price}`
   );
   const qtyMutate = useMutation({
     mutationFn: ({ productId, su }) => mongoUpdateCart(productId, su),

@@ -23,7 +23,7 @@ export default function OrderProductCard({ product }) {
           {product.name}
         </p>
         <p>{product.size}</p>
-        <p>{product.price}</p>
+        <p>{`₩${product.price}`}</p>
       </div>
     </div>
   );

@@ -4,8 +4,23 @@ import { useDispatch } from "react-redux";
 import { navOff } from "../../redux/redux";
 import { sendMoon } from "../../api/auth";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { mongoGetQuestions } from "../../api/question";
+import QuestionCard from "../../components/QuestionCard/QuestionCard";
 
 export default function Support() {
+  const {
+    isLoading,
+    data: questions,
+    isError,
+  } = useQuery({
+    queryKey: ["questions"],
+    queryFn: async () => {
+      const data = await mongoGetQuestions();
+      return data;
+    },
+    staleTime: 1000 * 60 * 60,
+  });
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,6 +41,7 @@ export default function Support() {
     setMoon(e.target.value);
   };
   const handleForm = async (e) => {
+    setError(false);
     e.preventDefault();
     try {
       await sendMoon(name, email, paymentId, moon);
@@ -53,6 +69,9 @@ export default function Support() {
     window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
+  if (isLoading) {
+    return <div className={styles.support}></div>;
+  }
   return (
     <div className={styles.support}>
       <div className={styles.left}>
@@ -107,23 +126,20 @@ export default function Support() {
               {error && (
                 <motion.div
                   style={{
-                    fontSize: "2rem",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontSize: "2.5rem",
                     zIndex: "2",
                     color: "#fff54f",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                  initial={{
                     position: "fixed",
                     top: "-20%",
                     left: "50%",
+                    transform: "translate(-50%, -50%)",
                   }}
-                  animate={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                  }}
+                  animate={{ top: "20%", left: "50%" }}
                   transition={{
-                    duration: 1.2,
+                    duration: 0.5,
                   }}
                 >
                   <span>{errorMessage}</span>
@@ -131,6 +147,19 @@ export default function Support() {
               )}
             </div>
           </form>
+        </div>
+      </div>
+      <div className={styles.right}>
+        <div className={styles.questionWrap}>
+          <div className={styles.title}>
+            <span>자주 하는 질문</span>
+          </div>
+          <div className={styles.question}>
+            {questions &&
+              questions.map((question) => (
+                <QuestionCard question={question} key={question.id} />
+              ))}
+          </div>
         </div>
       </div>
     </div>

@@ -103,6 +103,7 @@ export default function Profile() {
     logoutMutate.mutate();
   };
   const handleUpdate = async (e) => {
+    setError(false);
     e.preventDefault();
     if (zipcode && !address2) {
       setErrorMessage("상세주소를 입력하세요");
@@ -187,26 +188,24 @@ export default function Profile() {
   }
   return (
     <div className={styles.profile}>
-      <div className={styles.left}>
-        <div className={styles.left_order}>
-          {orderLength === 0 ? (
-            <div className={styles.orderEmpty}>
-              <h1>주문내역이 없습니다</h1>
-            </div>
-          ) : (
-            <div className={styles.orderMain}>
-              <div className={styles.title}>
-                <span>ORDERS</span>
-              </div>
-              <div className={styles.main}>
-                {orders.map((order) => {
-                  return <OrderCard order={order} key={order.paymentId} />;
-                })}
-              </div>
-            </div>
-          )}
+      {orderLength === 0 ? (
+        <div className={styles.orderEmpty}>
+          <h1>주문내역이 없습니다</h1>
         </div>
-      </div>
+      ) : (
+        <div className={styles.left}>
+          <div className={styles.orderMain}>
+            <div className={styles.title}>
+              <span>ORDERS</span>
+            </div>
+            <div className={styles.main}>
+              {orders.map((order) => {
+                return <OrderCard order={order} key={order.paymentId} />;
+              })}
+            </div>
+          </div>
+        </div>
+      )}
       <div className={styles.right}>
         <div className={styles.profileWrap}>
           <div className={styles.title}>
@@ -319,23 +318,20 @@ export default function Profile() {
               {error && (
                 <motion.div
                   style={{
-                    fontSize: "2rem",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontSize: "2.5rem",
                     zIndex: "2",
                     color: "#fff54f",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                  initial={{
                     position: "fixed",
                     top: "-20%",
                     left: "50%",
+                    transform: "translate(-50%, -50%)",
                   }}
-                  animate={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                  }}
+                  animate={{ top: "20%", left: "50%" }}
                   transition={{
-                    duration: 1.2,
+                    duration: 0.5,
                   }}
                 >
                   <span>{errorMessage}</span>

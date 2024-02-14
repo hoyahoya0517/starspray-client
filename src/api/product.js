@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export async function getProducts() {
+export async function getProducts(category) {
   try {
-    const json = await axios.get("/product");
+    const json = await axios.get(`/product/category/${category}`);
     return json.data;
   } catch (error) {
     throw Error(error.response.data.message);
@@ -11,7 +11,7 @@ export async function getProducts() {
 
 export async function getProduct(id) {
   try {
-    const json = await axios.get(`/product/${id}`);
+    const json = await axios.get(`/product/detail/${id}`);
     return json.data;
   } catch (error) {
     throw Error(error.response.data.message);
@@ -38,7 +38,7 @@ export async function getProductByOrder(id) {
 
 export async function checkCart(cart) {
   try {
-    await axios.get("/product/cart/check", { cart });
+    await axios.post("/product/cart/check", { cart });
   } catch (error) {
     throw Error(error.response.data.message);
   }

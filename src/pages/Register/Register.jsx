@@ -28,6 +28,7 @@ export default function Register() {
     setPhone(e.target.value);
   };
   const handleRegister = async (e) => {
+    setError(false);
     e.preventDefault();
     try {
       const user = {
@@ -106,23 +107,20 @@ export default function Register() {
             {error && (
               <motion.div
                 style={{
-                  fontSize: "2rem",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: "2.5rem",
                   zIndex: "2",
                   color: "#fff54f",
-                  transform: "translate(-50%, -50%)",
-                }}
-                initial={{
                   position: "fixed",
                   top: "-20%",
                   left: "50%",
+                  transform: "translate(-50%, -50%)",
                 }}
-                animate={{
-                  position: "fixed",
-                  top: "50%",
-                  left: "50%",
-                }}
+                animate={{ top: "20%", left: "50%" }}
                 transition={{
-                  duration: 1.2,
+                  duration: 0.5,
                 }}
               >
                 <span>{errorMessage}</span>

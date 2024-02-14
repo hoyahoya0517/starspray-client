@@ -19,6 +19,7 @@ export default function AdminOrderCard({ order }) {
   const [complete, setComplete] = useState(order.complete);
   const [refund, setRefund] = useState(order.refund);
   const [shipping, setShipping] = useState(order.shipping);
+  const [traking, setTraking] = useState(order.traking);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const orderUpdateMutate = useMutation({
@@ -53,6 +54,7 @@ export default function AdminOrderCard({ order }) {
     onError() {},
   });
   const handleUpdateOrder = async () => {
+    setError(false);
     if (!String(complete).trim()) {
       setErrorMessage("complete을 입력하세요");
       return setError(true);
@@ -73,15 +75,18 @@ export default function AdminOrderCard({ order }) {
       complete: newComplete,
       refund: newRefund,
       shipping,
+      traking,
     };
     orderUpdateMutate.mutate(updateOrder);
   };
   const handleDeleteOrder = () => {
+    setError(false);
     const go = window.confirm("구매기록을 삭제합니까?");
     if (go) orderDeleteMutate.mutate(order.id);
     return;
   };
   const handleRefundOrder = () => {
+    setError(false);
     orderRefundMutate.mutate(order.paymentId);
   };
   const handleName = (e) => {
@@ -107,6 +112,9 @@ export default function AdminOrderCard({ order }) {
   };
   const handleShipping = (e) => {
     setShipping(e.target.value);
+  };
+  const handleTraking = (e) => {
+    setTraking(e.target.value);
   };
   useEffect(() => {
     if (error) {
@@ -167,6 +175,10 @@ export default function AdminOrderCard({ order }) {
           <input value={address2} onChange={handleAddress2} />
         </div>
         <div className={styles.main_div}>
+          <span>delivery</span>
+          <span>{order.delivery}</span>
+        </div>
+        <div className={styles.main_div}>
           <span>total</span>
           <span>{order.total}</span>
         </div>
@@ -186,8 +198,12 @@ export default function AdminOrderCard({ order }) {
           <span>shipping</span>
           <input value={shipping} onChange={handleShipping} />
         </div>
+        <div className={styles.main_div}>
+          <span>traking</span>
+          <input value={traking} onChange={handleTraking} />
+        </div>
         <div className={styles.info}>
-          <span>우선순위 : complete - refund - shipping</span>
+          <span>우선순위 : complete - refund - shipping - traking</span>
           <span>complete은 결제상태</span>
           <span>
             complete이 false면 결제실패라고 나옴 / complete이 true면 shipping이
@@ -197,6 +213,7 @@ export default function AdminOrderCard({ order }) {
           <span>둘 다 아니면 shipping문구가 나옴</span>
           <span>자세히 보기 누르면 complete와 shpping은 나옴</span>
           <span>refund은 true일때만 출력</span>
+          <span>traking은 값이 있으면 나옴</span>
           <span>주의 : complete나 refund에 문자적으면 안됨</span>
         </div>
       </div>
@@ -208,23 +225,20 @@ export default function AdminOrderCard({ order }) {
       {error && (
         <motion.div
           style={{
-            fontSize: "2rem",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "2.5rem",
             zIndex: "2",
             color: "#fff54f",
-            transform: "translate(-50%, -50%)",
-          }}
-          initial={{
             position: "fixed",
             top: "-20%",
             left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
-          animate={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-          }}
+          animate={{ top: "20%", left: "50%" }}
           transition={{
-            duration: 1.2,
+            duration: 0.5,
           }}
         >
           <span>{errorMessage}</span>

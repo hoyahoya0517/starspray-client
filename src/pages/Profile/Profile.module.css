@@ -6,16 +6,10 @@
   display: grid;
   grid-template-columns: repeat(24, 1fr);
 }
-.left {
-  grid-column: 3 / 11;
+.orderEmpty {
+  grid-column: 2 / 12;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-.left_order {
-  width: 100%;
-}
-.orderEmpty {
   width: 100%;
 }
 .orderEmpty h1 {
@@ -25,12 +19,17 @@
   letter-spacing: -0.01rem;
   color: var(--yellow-color);
 }
+.left {
+  grid-column: 3 / 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .orderMain {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-
 .right {
   grid-column: 15 / -3;
   display: flex;

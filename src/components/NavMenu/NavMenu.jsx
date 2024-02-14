@@ -23,14 +23,14 @@ export default function NavMenu() {
         </div>
         <div className={styles.top}>
           {user?.name || false ? (
-            <div
-              className={styles.navMenuPerson}
+            <span
+              className={styles.menu_menu}
               onClick={() => {
                 navigate("/profile");
               }}
             >
-              <span>ACCOUNT</span>
-            </div>
+              ACCOUNT
+            </span>
           ) : (
             <span
               className={styles.menu_menu}
@@ -59,27 +59,34 @@ export default function NavMenu() {
           </span>
           <span
             onClick={() => {
-              navigate("/product");
+              navigate("/products/new");
             }}
             className={styles.menu_menu}
           >
             PRODUCT
           </span>
+          <span
+            onClick={() => {
+              navigate("/products/vintage");
+            }}
+            className={styles.menu_menu}
+          >
+            VINTAGE
+          </span>
         </div>
         <div className={styles.bottom}>
-          <div className={styles.menu_menu}>
-            <span
-              onClick={() => {
-                navigate("/support");
-              }}
-            >
-              SUPPORT
-            </span>
-          </div>
+          <span
+            className={styles.menu_menu}
+            onClick={() => {
+              navigate("/support");
+            }}
+          >
+            SUPPORT
+          </span>
         </div>
       </div>
       <div className={styles.right}>
-        <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1706544300/letter/cctv_qs1ibi.webp" />
+        <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1707919212/letter/back_ddkanu.webp" />
       </div>
     </div>
   );

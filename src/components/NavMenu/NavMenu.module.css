@@ -48,20 +48,6 @@
   justify-content: center;
   gap: 7px;
 }
-.navMenuPerson {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3px;
-  cursor: pointer;
-  padding: 2px 0;
-}
-.navMenuPerson span {
-  font-weight: 700;
-}
-.navMenuPersonSvg {
-  display: flex;
-}
 .menu_menu {
   cursor: pointer;
 }

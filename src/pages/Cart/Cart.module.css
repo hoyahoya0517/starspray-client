@@ -17,7 +17,7 @@
 .errorPage_left {
   display: flex;
   flex-direction: column;
-  grid-column: 3/13;
+  grid-column: 2/12;
 }
 .errorPage_left h1 {
   font-size: 3rem;
@@ -38,6 +38,9 @@
   font-weight: 400;
 }
 .cartEmpty {
+  grid-column: 2 / 12;
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 .cartEmpty h1 {
@@ -53,9 +56,6 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-}
-.left_cart {
-  width: 100%;
 }
 .cartMain {
   width: 100%;
@@ -167,6 +167,15 @@
   letter-spacing: 0em;
   font-weight: 400;
   line-height: 1.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+.agreeButton {
+  display: flex;
+  justify-content: flex-start;
+  padding-right: 5px;
 }
 .mainButton {
   width: 100%;
@@ -187,10 +196,3 @@
   color: white;
   background-color: black;
 }
-/* .error {
-  position: absolute;
-  top: calc(65px);
-  left: 0%;
-  font-size: 1.2rem;
-  color: var(--yellow-color);
-} */

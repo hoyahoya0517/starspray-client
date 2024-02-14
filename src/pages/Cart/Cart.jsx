@@ -10,6 +10,7 @@ import { getProductByCart } from "../../api/product";
 import CartCard from "../../components/CartCard/CartCard";
 import { pay } from "../../iamport/iamport";
 import { motion } from "framer-motion";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
 export default function Cart() {
   const navigate = useNavigate();
@@ -60,8 +61,9 @@ export default function Cart() {
   const [address2, setAddress2] = useState("");
   const [cartLength, setCartLength] = useState(0);
   const [sum, setSum] = useState(0);
-  const [shipping, setShipping] = useState(0);
+  const [delivery, setDelivery] = useState(3000);
   const [total, setTotal] = useState(0);
+  const [agree, setAgree] = useState(false);
   const userInfoMutate = useMutation({
     mutationFn: () => mongoCompleteCart(),
     onSuccess() {
@@ -85,13 +87,21 @@ export default function Cart() {
   const handleSearchAddress = () => {
     setOnSearch((prev) => !prev);
   };
+  const handleAgree = () => {
+    setAgree((prev) => !prev);
+  };
   const handlePay = async () => {
+    setError(false);
+    if (!userInfo?.cart || cartLength === 0) {
+      setErrorMessage("장바구니에 상품을 담아주세요");
+      return setError(true);
+    }
     if (!name || !phone || !email || !zipcode || !address1 || !address2) {
       setErrorMessage("결제정보를 입력해 주세요");
       return setError(true);
     }
-    if (!userInfo?.cart || cartLength === 0) {
-      setErrorMessage("장바구니에 상품을 담아주세요");
+    if (!agree) {
+      setErrorMessage("약관에 동의해주세요");
       return setError(true);
     }
     const customerId = userInfo?.id;
@@ -107,6 +117,7 @@ export default function Cart() {
         zipcode,
         address1,
         address2,
+        delivery,
         total,
         customerId
       );
@@ -172,13 +183,13 @@ export default function Cart() {
       setSum(tmpSum);
     }
   }, [userInfo]);
-  // useEffect(() => {
-  //   if (sum >= 50000) setShipping(0);
-  //   else setShipping(3000);
-  // }, [sum]);
   useEffect(() => {
-    setTotal(sum + shipping);
-  }, [sum, shipping]);
+    if (sum >= 30000) setDelivery(0);
+    else setDelivery(3000);
+  }, [sum]);
+  useEffect(() => {
+    setTotal(sum + delivery);
+  }, [sum, delivery]);
   useEffect(() => {
     if (cart) setCartLength(cart.length);
   }, [cart]);
@@ -210,37 +221,35 @@ export default function Cart() {
   }
   return (
     <div className={styles.cart}>
-      <div className={styles.left}>
-        <div className={styles.left_cart}>
-          {cartLength === 0 ? (
-            <div className={styles.cartEmpty}>
-              <h1>담긴 상품이 없습니다</h1>
-            </div>
-          ) : (
-            <div className={styles.cartMain}>
-              {cart.map((product) => {
-                return <CartCard product={product} key={product.id} />;
-              })}
+      {cartLength === 0 ? (
+        <div className={styles.cartEmpty}>
+          <h1>담긴 상품이 없습니다</h1>
+        </div>
+      ) : (
+        <div className={styles.left}>
+          <div className={styles.cartMain}>
+            {cart.map((product) => {
+              return <CartCard product={product} key={product.id} />;
+            })}
+          </div>
+          {cartLength === 0 ? null : (
+            <div className={styles.left_info}>
+              <div>
+                <span>상품금액</span>
+                <span>{`₩${sum}`}</span>
+              </div>
+              <div>
+                <span>배송비</span>
+                <span>{`₩${delivery}`}</span>
+              </div>
+              <div>
+                <span>총 주문금액</span>
+                <span>{`₩${total}`}</span>
+              </div>
             </div>
           )}
         </div>
-        {cartLength === 0 ? null : (
-          <div className={styles.left_info}>
-            <div>
-              <span>상품금액</span>
-              <span>{sum}</span>
-            </div>
-            <div>
-              <span>배송비</span>
-              <span>{shipping}</span>
-            </div>
-            <div>
-              <span>총 주문금액</span>
-              <span>{total}</span>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
       <div className={styles.right}>
         <div className={styles.profileWrap}>
           <div className={styles.title}>
@@ -323,7 +332,16 @@ export default function Cart() {
                   id="address2"
                 />
               </div>
-              <div className={styles.agree}>
+              <div className={styles.agree} onClick={handleAgree}>
+                {agree ? (
+                  <span className={styles.agreeButton} style={{ color: "red" }}>
+                    <IoIosHeart size={22} />
+                  </span>
+                ) : (
+                  <span className={styles.agreeButton}>
+                    <IoIosHeartEmpty size={22} />
+                  </span>
+                )}
                 <span>
                   주문 내용을 확인하였으며 교환 환불 규정을 확인했습니다.
                 </span>
@@ -336,23 +354,20 @@ export default function Cart() {
               {error && (
                 <motion.div
                   style={{
-                    fontSize: "2rem",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontSize: "2.5rem",
                     zIndex: "2",
                     color: "#fff54f",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                  initial={{
                     position: "fixed",
                     top: "-20%",
                     left: "50%",
+                    transform: "translate(-50%, -50%)",
                   }}
-                  animate={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                  }}
+                  animate={{ top: "20%", left: "50%" }}
                   transition={{
-                    duration: 1.2,
+                    duration: 0.5,
                   }}
                 >
                   <span>{errorMessage}</span>

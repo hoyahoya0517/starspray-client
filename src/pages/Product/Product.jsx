@@ -5,13 +5,20 @@ import { navOff } from "../../redux/redux";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../api/product";
+import { useParams } from "react-router-dom";
+import NotFoundComponent from "../../components/NotFoundComponent/NotFoundComponent";
 
 export default function Product() {
   const dispatch = useDispatch();
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["products"],
+  const { category } = useParams();
+  const {
+    isLoading,
+    data: products,
+    isError,
+  } = useQuery({
+    queryKey: ["products", category],
     queryFn: async () => {
-      const data = await getProducts();
+      const data = await getProducts(category);
       return data;
     },
     staleTime: 1000 * 60 * 60,
@@ -19,9 +26,15 @@ export default function Product() {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(navOff());
-  }, []);
+  }, [category]);
   if (isLoading) {
     return <div className={styles.product}></div>;
+  }
+  if (isError) {
+    return <NotFoundComponent />;
+  }
+  if (products?.length === 0) {
+    return <NotFoundComponent />;
   }
   return (
     <div className={styles.product}>

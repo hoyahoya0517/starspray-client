@@ -43,6 +43,7 @@ export default function AdminAuthCard({ profile }) {
   });
 
   const handleUpdateAuth = async () => {
+    setError(false);
     if (!String(isAdmin).trim()) {
       setErrorMessage("isAdmin을 입력하세요");
       return setError(true);
@@ -65,6 +66,7 @@ export default function AdminAuthCard({ profile }) {
   };
 
   const handleDeleteAuth = () => {
+    setError(false);
     const go = window.confirm("프로필을 삭제합니까?");
     if (go) authDeleteMutate.mutate(profile.id);
     return;
@@ -167,23 +169,20 @@ export default function AdminAuthCard({ profile }) {
       {error && (
         <motion.div
           style={{
-            fontSize: "2rem",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "2.5rem",
             zIndex: "2",
             color: "#fff54f",
-            transform: "translate(-50%, -50%)",
-          }}
-          initial={{
             position: "fixed",
             top: "-20%",
             left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
-          animate={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-          }}
+          animate={{ top: "20%", left: "50%" }}
           transition={{
-            duration: 1.2,
+            duration: 0.5,
           }}
         >
           <span>{errorMessage}</span>

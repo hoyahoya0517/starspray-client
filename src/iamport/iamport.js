@@ -11,6 +11,7 @@ export async function pay(
   zipcode,
   address1,
   address2,
+  delivery,
   total,
   customerId
 ) {
@@ -27,11 +28,13 @@ export async function pay(
     zipcode,
     address1,
     address2,
+    delivery,
     total,
     customerId,
     complete: false,
     refund: false,
     shipping: "주문 실패",
+    traking: "",
   };
   await checkCart(cart);
   const response = await PortOne.requestPayment({

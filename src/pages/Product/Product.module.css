@@ -1,7 +1,7 @@
 .product {
   width: 100%;
   min-height: calc(100% - 70px);
-  padding: 64px calc(100vw / 12);
+  padding: 64px calc(100vw / 6);
 }
 .productWrap {
   display: grid;

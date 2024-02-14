@@ -1,39 +1,69 @@
 import { useState } from "react";
 import styles from "./ProductCard.module.css";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
-  const [hover, setHover] = useState(false);
-  const handleMouseOver = () => {
-    setHover(true);
-  };
-  const handleMouseOut = () => {
-    setHover(false);
-  };
-  const priceSet = () => {
-    if (Number(product.qty) === 0) return "SOLD OUT";
-    else return `${product.price}원`;
-  };
-  const handleNavigate = () => {
-    navigate(`./${product.id}`);
+  const [click, setClick] = useState(false);
+  const handleClick = () => {
+    if (!click) return setClick(true);
+    navigate(`/product/${product.id}`);
   };
   return (
-    <div onClick={handleNavigate} className={styles.productCard}>
-      {/* <div className={styles.productImg}>
-        <img
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut}
-          src={hover ? `${product.img[1]}` : `${product.img[0]}`}
-        />
-      </div>
-      <div className={styles.productInfo}>
-        <span>{product.name}</span>
-        <span>{priceSet()}</span>
-      </div> */}
-      <div className={styles.productImg}>
+    <motion.div
+      animate={
+        click && {
+          scale: 1.3,
+          transition: { duration: 0.3 },
+        }
+      }
+      onClick={handleClick}
+      className={styles.productCard}
+    >
+      <motion.div
+        animate={
+          click && {
+            opacity: 0.8,
+            transition: { duration: 0.2 },
+          }
+        }
+        className={styles.productImg}
+      >
         <img src={`${product.img[0]}`} />
-      </div>
-    </div>
+      </motion.div>
+      {click ? (
+        product.qty > 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={
+              click && {
+                opacity: 1,
+                transition: { duration: 0.3, delay: 0.2 },
+              }
+            }
+            className={styles.hoverDetail}
+          >
+            <span>{product.name}</span>
+            <span>{`₩${product.price}`}</span>
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={
+              click && {
+                opacity: 1,
+                transition: { duration: 0.3, delay: 0.2 },
+              }
+            }
+            className={styles.soldout}
+          >
+            <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1707481140/letter/soldout2_gvcesy.png" />
+          </motion.div>
+        )
+      ) : (
+        <></>
+      )}
+    </motion.div>
   );
 }
