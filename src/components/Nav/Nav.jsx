@@ -25,7 +25,7 @@ export default function Nav() {
       <div className={styles.navWrapper}>
         <div className={styles.menu}>
           <button className={styles.menu_list} onClick={navStateOn}>
-            <FaBars size={20} />
+            <FaBars style={{ color: "black" }} size={20} />
           </button>
           <div
             onClick={() => {
@@ -34,7 +34,7 @@ export default function Nav() {
             className={styles.menu_cart}
           >
             <button>
-              <FaShoppingBag size={20} />
+              <FaShoppingBag style={{ color: "black" }} size={20} />
             </button>
             {user ? (
               user.cart.length === 0 ? null : (
@@ -55,7 +55,7 @@ export default function Nav() {
           <div className={styles.add_margin}></div>
           <div className={styles.insta}>
             <button type="button">
-              <FaInstagram size={20} />
+              <FaInstagram style={{ color: "black" }} size={20} />
             </button>
           </div>
         </div>
