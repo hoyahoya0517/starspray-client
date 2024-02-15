@@ -8,7 +8,7 @@
   display: flex;
 }
 .right {
-  width: 100%;
+  width: 70%;
   height: 100%;
   flex-grow: 1;
 }
@@ -21,7 +21,7 @@
 }
 .menu {
   position: relative;
-  width: 25%;
+  width: 30%;
   height: 100%;
   background-color: rgb(255, 255, 255);
   border-right: 1px solid black;
@@ -41,7 +41,7 @@
   cursor: pointer;
 }
 .top {
-  flex-basis: 65%;
+  flex-basis: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 .bottom {
-  flex-basis: 35%;
+  flex-basis: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,7 +74,7 @@
     display: flex;
     flex-direction: column;
     z-index: 9999;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 2px;
   }

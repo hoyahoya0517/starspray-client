@@ -107,4 +107,7 @@
     text-align: center;
     background-color: transparent;
   }
+  .add_margin {
+    width: 40px;
+  }
 }
