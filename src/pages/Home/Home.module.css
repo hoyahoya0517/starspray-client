@@ -1,6 +1,8 @@
 .home {
   width: 100%;
-  height: calc(100% - 70px);
+  min-height: calc(100% - 70px);
+  display: flex;
+  flex-direction: column;
 }
 .mainVideo {
   position: absolute;
