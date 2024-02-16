@@ -7,8 +7,13 @@
   align-items: center;
 }
 .notFoundImg {
-  width: 30%;
+  width: 60%;
 }
 .notFoundImg img {
   width: 100%;
+}
+@media (max-width: 767px) {
+  .notFoundImg {
+    width: 80%;
+  }
 }

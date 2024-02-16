@@ -34,7 +34,7 @@ export default function Nav() {
             className={styles.menu_cart}
           >
             <span className={styles.menu_Cartbutton}>
-              <FaShoppingBag style={{ color: "black" }} size={16} />
+              <FaShoppingBag style={{ color: "black" }} size={17} />
             </span>
             {user ? (
               user.cart.length === 0 ? null : (

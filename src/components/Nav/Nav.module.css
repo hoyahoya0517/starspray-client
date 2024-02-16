@@ -51,7 +51,7 @@
   border-radius: 0;
   text-align: center;
   background-color: transparent;
-  padding: 7px;
+  padding: 6.5px;
 }
 .menu_instaButton {
   display: flex;
@@ -64,7 +64,7 @@
   border-radius: 0;
   text-align: center;
   background-color: transparent;
-  padding: 5px;
+  padding: 7px;
 }
 .menu_cart {
   position: relative;
