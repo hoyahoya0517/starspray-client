@@ -36,6 +36,7 @@ export default function NavMenu() {
               STARSPRAY
             </span>
           </div>
+          <div className={styles.air}></div>
           {user?.name || false ? (
             <div>
               <span

@@ -55,7 +55,7 @@
   cursor: pointer;
 }
 .air {
-  height: 5rem;
+  height: 3rem;
 }
 .menu_menu {
   font-size: 3rem;
@@ -69,7 +69,7 @@
     cursor: pointer;
   }
   .air {
-    height: 3rem;
+    height: 2.5rem;
   }
   .menu_menu {
     font-size: 2.5rem;

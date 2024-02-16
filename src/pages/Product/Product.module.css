@@ -9,3 +9,5 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 64px calc(100vw / 24);
 }
+
+@media (max-width: 767px) {}
