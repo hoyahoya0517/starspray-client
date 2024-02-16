@@ -21,7 +21,7 @@
   color: var(--yellow-color);
 }
 .left {
-  grid-column: 3 / 11;
+  grid-column: 2 / 12;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +32,7 @@
   flex-direction: column;
 }
 .right {
-  grid-column: 15 / -3;
+  grid-column: 14/ -2;
   display: flex;
   flex-direction: column;
   align-items: center;

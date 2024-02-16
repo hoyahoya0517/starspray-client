@@ -48,3 +48,14 @@ button {
 input[type="radio"] {
   appearance: auto;
 }
+@media (max-width: 767px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #1ba11a
+      url("https://res.cloudinary.com/hoyahoya/image/upload/v1702882191/letter/tile_vkvmea.png")
+      top left repeat;
+    background-size: 50%;
+  }
+}

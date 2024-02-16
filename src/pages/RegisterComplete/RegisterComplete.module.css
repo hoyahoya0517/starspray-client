@@ -20,7 +20,7 @@
   color: var(--yellow-color);
 }
 .right {
-  grid-column: 15 / -3;
+  grid-column: 14 / -2;
 }
 .right span {
   display: flex;

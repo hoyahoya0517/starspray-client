@@ -8,7 +8,7 @@
   font-size: 0.8rem;
 }
 .left {
-  grid-column: 3 / 11;
+  grid-column: 2 / 12;
   display: flex;
   flex-direction: column;
   align-items: center;
