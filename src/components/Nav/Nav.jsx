@@ -55,7 +55,7 @@ export default function Nav() {
           <div className={styles.add_margin}></div>
           <div className={styles.insta}>
             <span className={styles.menu_instaButton}>
-              <FaInstagram style={{ color: "black" }} size={20} />
+              <FaInstagram style={{ color: "black" }} size={18} />
             </span>
           </div>
         </div>
