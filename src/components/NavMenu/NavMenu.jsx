@@ -20,9 +20,9 @@ export default function NavMenu() {
       <div className={styles.menu} onClick={navStateKeep}>
         <div className={styles.xWrap}>
           <div className={styles.x}>
-            <button onClick={navStateOff}>
+            <spab className={styles.menu_button} onClick={navStateOff}>
               <BsXLg style={{ color: "black" }} size={20} />
-            </button>
+            </spab>
           </div>
         </div>
         <div className={styles.top}>

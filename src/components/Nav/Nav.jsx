@@ -24,18 +24,18 @@ export default function Nav() {
     <header className={styles.nav}>
       <div className={styles.navWrapper}>
         <div className={styles.menu}>
-          <button className={styles.menu_list} onClick={navStateOn}>
+          <span className={styles.menu_button} onClick={navStateOn}>
             <FaBars style={{ color: "black" }} size={20} />
-          </button>
+          </span>
           <div
             onClick={() => {
               navigate("/cart");
             }}
             className={styles.menu_cart}
           >
-            <button>
+            <span className={styles.menu_button}>
               <FaShoppingBag style={{ color: "black" }} size={20} />
-            </button>
+            </span>
             {user ? (
               user.cart.length === 0 ? null : (
                 <span className={styles.cart_icon}>{user.cart.length}</span>
@@ -54,9 +54,9 @@ export default function Nav() {
         <div className={styles.add}>
           <div className={styles.add_margin}></div>
           <div className={styles.insta}>
-            <button type="button">
+            <span className={styles.menu_button}>
               <FaInstagram style={{ color: "black" }} size={20} />
-            </button>
+            </span>
           </div>
         </div>
       </div>

@@ -30,8 +30,8 @@
   align-items: center;
   justify-content: space-between;
 }
-.x button {
-  display: inline-flex;
+.menu_button {
+  display: flex;
   justify-content: center;
   align-items: center;
   outline: none;
@@ -39,14 +39,14 @@
   margin: 0px;
   cursor: pointer;
   border-radius: 0;
-  padding: 10px;
   text-align: center;
   background-color: transparent;
+  padding: 5px;
 }
 .top {
   display: flex;
   flex-direction: column;
-  padding-left: calc(100vw / 12);
+  padding-left: calc(100vw / 24);
   font-weight: 700;
   letter-spacing: 2px;
 }
@@ -65,11 +65,11 @@
 /* 모바일 */
 @media (max-width: 767px) {
   .starSpray {
-    font-size: 2.5rem;
+    font-size: 3rem;
     cursor: pointer;
   }
   .air {
-    height: 2.5rem;
+    height: 3rem;
   }
   .menu_menu {
     font-size: 2.5rem;
