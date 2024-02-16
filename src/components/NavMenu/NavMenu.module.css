@@ -74,8 +74,23 @@
     display: flex;
     flex-direction: column;
     z-index: 9999;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 700;
     letter-spacing: 2px;
+  }
+  .top {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  .bottom {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }

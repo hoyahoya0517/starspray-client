@@ -1,20 +1,11 @@
 .home {
   width: 100%;
   min-height: calc(100% - 70px);
-  padding: 64px calc(100vw / 24);
-  display: flex;
-  flex-direction: column;
-}
-.mainWrap {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  left: 0;
-  top: 0;
-  z-index: 3333;
 }
 .main {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .videoWrap {
   position: relative;
@@ -24,7 +15,7 @@
   position: relative;
   width: 100%;
   font-size: 5rem;
-  z-index: 4444;
+  z-index: 2222;
   color: var(--yellow-color);
   padding: 70px calc(100vw / 24);
 }
@@ -34,7 +25,11 @@
   font-size: 5rem;
   z-index: 4444;
   color: white;
-  padding: calc(100vw / 24);
+  padding: calc(100vw / 48) calc(100vw / 24);
+  display: flex;
+}
+.info span {
+  cursor: pointer;
 }
 .video {
   position: absolute;
@@ -54,9 +49,9 @@
     position: relative;
     width: 100%;
     font-size: 3rem;
-    z-index: 4444;
+    z-index: 2222;
     color: var(--yellow-color);
-    padding: 70px 16px;
+    padding: 70px calc(100vw / 24);
   }
   .info {
     position: relative;
@@ -64,6 +59,7 @@
     font-size: 3rem;
     z-index: 4444;
     color: white;
-    padding: 16px;
+    padding: calc(100vw / 48) calc(100vw / 24);
+    display: flex;
   }
 }
