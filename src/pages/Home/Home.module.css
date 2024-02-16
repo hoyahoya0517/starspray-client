@@ -15,6 +15,8 @@
   position: relative;
   width: 100%;
   font-size: 5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
   z-index: 2222;
   color: var(--yellow-color);
   padding: 70px calc(100vw / 24);
@@ -25,7 +27,7 @@
   font-size: 5rem;
   z-index: 4444;
   color: white;
-  padding: calc(100vw / 48) calc(100vw / 24);
+  padding: 20px calc(100vw / 24);
   display: flex;
 }
 .info span {
@@ -49,6 +51,8 @@
     position: relative;
     width: 100%;
     font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
     z-index: 2222;
     color: var(--yellow-color);
     padding: 70px calc(100vw / 24);

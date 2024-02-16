@@ -15,7 +15,7 @@
   margin-top: 20px;
   margin-left: 16px;
   margin-right: 16px;
-  padding: 1rem;
+  padding: 0 16px;
   border-radius: 1rem;
   display: flex;
   justify-content: space-between;
@@ -31,7 +31,7 @@
   margin: 0px;
   cursor: pointer;
   border-radius: 0;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   background-color: transparent;
 }
@@ -54,8 +54,8 @@
   min-width: 20px;
   font-size: 10px;
   font-weight: 700;
-  top: 33%;
-  right: -3%;
+  top: 30%;
+  right: -25%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
   background-color: var(--yellow-color);
@@ -78,7 +78,7 @@
   align-items: center;
 }
 .add_margin {
-  width: 60px;
+  width: 40px;
 }
 
 /* 모바일 */
@@ -90,27 +90,11 @@
     margin-top: 20px;
     margin-left: 16px;
     margin-right: 16px;
-    padding: 0.5rem;
+    padding: 0 8px;
     border-radius: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(180deg, #dbdbd8 0%, #e4e4e0 100%);
-  }
-  .nav button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    outline: none;
-    border: 0px;
-    margin: 0px;
-    cursor: pointer;
-    border-radius: 0;
-    padding: 10px;
-    text-align: center;
-    background-color: transparent;
-  }
-  .add_margin {
-    width: 40px;
   }
 }

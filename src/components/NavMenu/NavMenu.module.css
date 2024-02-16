@@ -5,92 +5,100 @@
   top: 0%;
   position: fixed;
   z-index: 9999;
-  display: flex;
-}
-.right {
-  width: 75%;
-  height: 100%;
-  flex-grow: 1;
-}
-.right img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* object-position: bottom; */
-  cursor: pointer;
 }
 .menu {
   position: relative;
-  width: 25%;
+  width: 100%;
   height: 100%;
   background-color: rgb(255, 255, 255);
-  border-right: 1px solid black;
   display: flex;
   flex-direction: column;
   z-index: 9999;
-  font-size: 1.2rem;
+}
+.xWrap {
+  width: 100%;
+  height: 70px;
+}
+.x {
+  z-index: 8888;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  margin-left: 16px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.x button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  border-radius: 0;
+  padding: 10px;
+  text-align: center;
+  background-color: transparent;
+}
+.top {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
   font-weight: 700;
   letter-spacing: 2px;
 }
-.x {
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px;
-}
-.x svg {
-  cursor: pointer;
-}
-.top {
-  flex-basis: 60%;
+.left {
+  grid-column: 2/17;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
+}
+.starSpray {
+  font-size: 5rem;
+  cursor: pointer;
+}
+.air {
+  height: 5rem;
 }
 .menu_menu {
+  font-size: 3rem;
   cursor: pointer;
 }
-.bottom {
-  flex-basis: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.right {
+  grid-column: 17/24;
 }
 
 /* 모바일 */
 @media (max-width: 767px) {
-  .right {
-    width: 0%;
-    height: 0%;
-  }
-  .menu {
-    position: relative;
+  .x {
+    z-index: 8888;
     width: 100%;
-    height: 100%;
-    background-color: rgb(255, 255, 255);
-    border-right: 1px solid black;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 16px;
+    padding: 0 8px;
     display: flex;
-    flex-direction: column;
-    z-index: 9999;
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
-  .top {
-    flex-basis: 50%;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 7px;
+    justify-content: space-between;
   }
-  .bottom {
-    flex-basis: 50%;
+  .left {
+    grid-column: 2/-1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  }
+  .right {
+    grid-column: 0/0;
+  }
+  .starSpray {
+    font-size: 3rem;
+    cursor: pointer;
+  }
+  .air {
+    height: 3rem;
+  }
+  .menu_menu {
+    font-size: 2.5rem;
+    cursor: pointer;
   }
 }
