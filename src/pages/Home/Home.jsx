@@ -20,7 +20,7 @@ export default function Home() {
               <span>STARSPRAY</span>
             </div>
             <video autoPlay muted loop playsInline className={styles.video}>
-              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1707918941/letter/star4_alwwl0.mp4"></source>
+              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1708061272/letter/star4_zkdhdg.mp4"></source>
             </video>
           </div>
           <div className={styles.videoWrap}>
@@ -28,7 +28,7 @@ export default function Home() {
               <span>PRODUCT</span>
             </div>
             <video autoPlay muted loop playsInline className={styles.video}>
-              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1708057452/video2_zrfgzb.mp4"></source>
+              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1708061272/letter/star4_zkdhdg.mp4"></source>
             </video>
           </div>
           <div className={styles.videoWrap}>
@@ -36,7 +36,7 @@ export default function Home() {
               <span>VINTAGE</span>
             </div>
             <video autoPlay muted loop playsInline className={styles.video}>
-              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1708060375/video33_dosgbd.mp4"></source>
+              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1708061293/letter/video33_rsqybd.mp4"></source>
             </video>
           </div>
         </div>
