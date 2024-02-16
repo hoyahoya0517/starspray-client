@@ -21,88 +21,85 @@ export default function NavMenu() {
         <div className={styles.xWrap}>
           <div className={styles.x}>
             <button onClick={navStateOff}>
-              <BsXLg size={20} />
+              <BsXLg style={{ color: "black" }} size={20} />
             </button>
           </div>
         </div>
         <div className={styles.top}>
-          <div className={styles.left}>
-            <div>
-              <span
-                className={styles.starSpray}
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                STARSPRAY
-              </span>
-            </div>
-            {user?.name || false ? (
-              <div>
-                <span
-                  className={styles.menu_menu}
-                  onClick={() => {
-                    navigate("/profile");
-                  }}
-                >
-                  ACCOUNT
-                </span>
-              </div>
-            ) : (
-              <div>
-                <span
-                  className={styles.menu_menu}
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  LOGIN
-                </span>
-              </div>
-            )}
-            <div>
-              <span
-                onClick={() => {
-                  navigate("/cart");
-                }}
-                className={styles.menu_menu}
-              >
-                CART
-              </span>
-            </div>
-            <div>
-              <span
-                onClick={() => {
-                  navigate("/products/new");
-                }}
-                className={styles.menu_menu}
-              >
-                PRODUCT
-              </span>
-            </div>
-            <div>
-              <span
-                onClick={() => {
-                  navigate("/products/vintage");
-                }}
-                className={styles.menu_menu}
-              >
-                VINTAGE
-              </span>
-            </div>
-            <div className={styles.air}></div>
-            <div>
-              <span
-                className={styles.menu_menu}
-                onClick={() => {
-                  navigate("/support");
-                }}
-              >
-                SUPPORT
-              </span>
-            </div>
+          <div>
+            <span
+              className={styles.starSpray}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              STARSPRAY
+            </span>
           </div>
-          <div className={styles.right}></div>
+          {user?.name || false ? (
+            <div>
+              <span
+                className={styles.menu_menu}
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              >
+                ACCOUNT
+              </span>
+            </div>
+          ) : (
+            <div>
+              <span
+                className={styles.menu_menu}
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                LOGIN
+              </span>
+            </div>
+          )}
+          <div>
+            <span
+              onClick={() => {
+                navigate("/cart");
+              }}
+              className={styles.menu_menu}
+            >
+              CART
+            </span>
+          </div>
+          <div>
+            <span
+              onClick={() => {
+                navigate("/products/new");
+              }}
+              className={styles.menu_menu}
+            >
+              PRODUCT
+            </span>
+          </div>
+          <div>
+            <span
+              onClick={() => {
+                navigate("/products/vintage");
+              }}
+              className={styles.menu_menu}
+            >
+              VINTAGE
+            </span>
+          </div>
+          <div className={styles.air}></div>
+          <div>
+            <span
+              className={styles.menu_menu}
+              onClick={() => {
+                navigate("/support");
+              }}
+            >
+              SUPPORT
+            </span>
+          </div>
         </div>
       </div>
     </div>

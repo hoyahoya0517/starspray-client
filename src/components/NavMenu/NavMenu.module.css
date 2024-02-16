@@ -24,8 +24,8 @@
   width: 100%;
   height: 50px;
   margin-top: 20px;
-  margin-left: 16px;
-  padding: 0 16px;
+  margin-left: calc(100vw / 48);
+  padding: 0 calc(100vw / 48);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,15 +44,11 @@
   background-color: transparent;
 }
 .top {
-  display: grid;
-  grid-template-columns: repeat(24, 1fr);
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-.left {
-  grid-column: 2/17;
   display: flex;
   flex-direction: column;
+  padding-left: calc(100vw / 12);
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 .starSpray {
   font-size: 5rem;
@@ -65,37 +61,15 @@
   font-size: 3rem;
   cursor: pointer;
 }
-.right {
-  grid-column: 17/24;
-}
 
 /* 모바일 */
 @media (max-width: 767px) {
-  .x {
-    z-index: 8888;
-    width: 100%;
-    height: 50px;
-    margin-top: 20px;
-    margin-left: 16px;
-    padding: 0 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .left {
-    grid-column: 2/-1;
-    display: flex;
-    flex-direction: column;
-  }
-  .right {
-    grid-column: 0/0;
-  }
   .starSpray {
-    font-size: 3rem;
+    font-size: 2.5rem;
     cursor: pointer;
   }
   .air {
-    height: 3rem;
+    height: 2.5rem;
   }
   .menu_menu {
     font-size: 2.5rem;
