@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: calc(100vw / 48);
+  gap: calc((100vw / 48) - 10px);
 }
 .menu_button {
   display: flex;
@@ -56,7 +56,7 @@
   font-size: 10px;
   font-weight: 700;
   top: 30%;
-  right: 0%;
+  right: -50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
   background-color: var(--yellow-color);
@@ -79,7 +79,7 @@
   align-items: center;
 }
 .add_margin {
-  width: 20px;
+  width: 30px;
 }
 
 /* 모바일 */
