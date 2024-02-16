@@ -28,7 +28,7 @@ export default function Home() {
               <span>PRODUCT</span>
             </div>
             <video autoPlay muted loop playsInline className={styles.video}>
-              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1708061272/letter/star4_zkdhdg.mp4"></source>
+              <source src="https://res.cloudinary.com/hoyahoya/video/upload/v1708061295/letter/video22_vhm7v7.mp4"></source>
             </video>
           </div>
           <div className={styles.videoWrap}>
