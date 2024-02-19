@@ -25,7 +25,7 @@ export default function Nav() {
       <div className={styles.navWrapper}>
         <div className={styles.menu}>
           <span className={styles.menu_listButton} onClick={navStateOn}>
-            <FaBars style={{ color: "black" }} size={18} />
+            <FaBars style={{ color: "black" }} size={20} />
           </span>
           <div
             onClick={() => {
@@ -34,7 +34,7 @@ export default function Nav() {
             className={styles.menu_cart}
           >
             <span className={styles.menu_Cartbutton}>
-              <FaShoppingBag style={{ color: "black" }} size={17} />
+              <FaShoppingBag style={{ color: "black" }} size={18} />
             </span>
             {user ? (
               user.cart.length === 0 ? null : (

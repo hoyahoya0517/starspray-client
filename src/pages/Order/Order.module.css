@@ -54,3 +54,19 @@
   justify-content: flex-start;
   align-items: center;
 }
+@media (max-width: 767px) {
+  .order {
+    padding: 64px calc(100vw / 24);
+    grid-template-columns: none;
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 40px;
+  }
+  .left {
+    grid-column: unset;
+    grid-row: 1/2;
+  }
+  .right {
+    grid-column: unset;
+    grid-row: 2/3;
+  }
+}

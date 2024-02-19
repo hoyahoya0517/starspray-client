@@ -89,3 +89,19 @@
   object-fit: cover;
   z-index: -1;
 }
+@media (max-width: 767px) {
+  .productDetail {
+    padding: 64px calc(100vw / 24);
+    grid-template-columns: none;
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 40px;
+  }
+  .leftWrap {
+    grid-column: unset;
+    grid-row: 2/3;
+  }
+  .right {
+    grid-column: unset;
+    grid-row: 1/2;
+  }
+}

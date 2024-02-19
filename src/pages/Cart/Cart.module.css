@@ -22,7 +22,7 @@
   grid-column: 2/12;
 }
 .errorPage_left h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.01rem;
@@ -46,7 +46,7 @@
   width: 100%;
 }
 .cartEmpty h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.01rem;
@@ -197,4 +197,39 @@
   padding: 17px 27px;
   color: white;
   background-color: black;
+}
+
+@media (max-width: 767px) {
+  .errorPage {
+    padding: 64px calc(100vw / 24);
+    grid-template-columns: none;
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 40px;
+  }
+  .errorPage_left {
+    grid-column: unset;
+    grid-row: 1/2;
+  }
+  .errorPage_right {
+    grid-column: unset;
+    grid-row: 2/3;
+  }
+  .cart {
+    padding: 64px calc(100vw / 24);
+    grid-template-columns: none;
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 40px;
+  }
+  .cartEmpty {
+    grid-column: unset;
+    grid-row: 1/2;
+  }
+  .left {
+    grid-column: unset;
+    grid-row: 1/2;
+  }
+  .right {
+    grid-column: unset;
+    grid-row: 2/3;
+  }
 }

@@ -100,3 +100,19 @@
   display: flex;
   flex-direction: column;
 }
+@media (max-width: 767px) {
+  .support {
+    padding: 64px calc(100vw / 24);
+    grid-template-columns: none;
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 40px;
+  }
+  .left {
+    grid-column: unset;
+    grid-row: 1/2;
+  }
+  .right {
+    grid-column: unset;
+    grid-row: 2/3;
+  }
+}

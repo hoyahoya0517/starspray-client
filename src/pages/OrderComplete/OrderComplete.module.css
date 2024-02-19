@@ -18,11 +18,16 @@
   z-index: 2;
 }
 .orderCompleteWrap span:nth-child(1) {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: var(--yellow-color);
 }
 .orderCompleteWrap span:nth-child(2) {
+  font-size: 2.5rem;
+  color: var(--yellow-color);
+}
+.orderCompleteWrap span:nth-child(3) {
   font-size: 1rem;
+  padding: 1rem;
   text-decoration: underline;
   text-underline-offset: 0.3em;
   cursor: pointer;
@@ -36,4 +41,9 @@
 .motion img {
   width: 100%;
   object-fit: cover;
+}
+@media (max-width: 767px) {
+  .orderCompleteWrap {
+    padding: 64px calc(100vw / 24);
+  }
 }

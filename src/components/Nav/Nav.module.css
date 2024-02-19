@@ -38,7 +38,7 @@
   border-radius: 0;
   text-align: center;
   background-color: transparent;
-  padding: 6px;
+  padding: 5px;
 }
 .menu_Cartbutton {
   display: flex;
@@ -51,7 +51,7 @@
   border-radius: 0;
   text-align: center;
   background-color: transparent;
-  padding: 6.5px;
+  padding: 6px;
 }
 .menu_instaButton {
   display: flex;
@@ -64,7 +64,7 @@
   border-radius: 0;
   text-align: center;
   background-color: transparent;
-  padding: 7px;
+  padding: 5px;
 }
 .menu_cart {
   position: relative;
@@ -80,8 +80,8 @@
   min-width: 20px;
   font-size: 10px;
   font-weight: 700;
-  top: 25%;
-  right: -50%;
+  top: 20%;
+  right: -55%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
   background-color: var(--yellow-color);

@@ -10,4 +10,16 @@
   grid-gap: 64px calc(100vw / 24);
 }
 
-@media (max-width: 767px) {}
+@media (max-width: 767px) {
+  .product {
+    width: 100%;
+    min-height: calc(100% - 70px);
+    margin-top: 70px;
+    padding: 64px calc(100vw / 24);
+  }
+  .productWrap {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 64px calc(100vw / 24);
+  }
+}

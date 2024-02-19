@@ -44,26 +44,12 @@
 
 @media (max-width: 767px) {
   .videoWrap {
-    position: relative;
     min-height: 610px;
   }
   .starSpray {
-    position: relative;
-    width: 100%;
     font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    z-index: 2222;
-    color: var(--yellow-color);
-    padding: 70px calc(100vw / 24);
   }
   .info {
-    position: relative;
-    width: 100%;
     font-size: 3rem;
-    z-index: 4444;
-    color: white;
-    padding: 20px calc(100vw / 24);
-    display: flex;
   }
 }

@@ -15,7 +15,8 @@ export default function OrderComplete() {
   return (
     <div className={styles.orderComplete}>
       <div className={styles.orderCompleteWrap}>
-        <span>{`Thanks to ${name}`}</span>
+        <span>Thanks to</span>
+        <span>{name}</span>
         <span
           onClick={() => {
             navigate("/");
@@ -26,9 +27,16 @@ export default function OrderComplete() {
         <div>
           {cart &&
             cart.map((product) => {
-              const random = Math.floor(Math.random() * 80) + 100;
+              const width = document.querySelector("#root").clientWidth;
+              const random =
+                width > 767
+                  ? Math.floor(Math.random() * 80) + 100
+                  : Math.floor(Math.random() * 70) + 100;
               const random1 = Math.floor(Math.random() * 71) + 10;
-              const random2 = Math.floor(Math.random() * 80);
+              const random2 =
+                width > 767
+                  ? Math.floor(Math.random() * 75) + 10
+                  : Math.floor(Math.random() * 60) + 10;
               const random3 = Math.floor(Math.random() * 10) + 1;
               return (
                 <motion.div
