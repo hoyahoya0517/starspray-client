@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
+  const width = document.querySelector("#root").clientWidth;
   const [click, setClick] = useState(false);
   const handleClick = () => {
     if (!click) return setClick(true);
@@ -14,7 +15,7 @@ export default function ProductCard({ product }) {
     <motion.div
       animate={
         click && {
-          scale: 1.3,
+          scale: width > 767 ? 1.3 : 1.1,
           transition: { duration: 0.3 },
         }
       }
