@@ -93,14 +93,6 @@ export default function AdminAuthCard({ profile }) {
   const handleAdmin = (e) => {
     setIsAdmin(e.target.value);
   };
-  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        setError(false);
-        setErrorMessage("");
-      }, 3000);
-    }
-  }, [error]);
   return (
     <div className={styles.adminAuthCard}>
       <div className={styles.main}>
@@ -168,19 +160,16 @@ export default function AdminAuthCard({ profile }) {
       </div>
       {error && (
         <motion.div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            fontSize: "2.5rem",
-            zIndex: "2",
-            color: "#fff54f",
-            position: "fixed",
-            top: "-20%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+          onClick={() => {
+            setError(false);
+            setErrorMessage("");
           }}
-          animate={{ top: "20%", left: "50%" }}
+          onTap={() => {
+            setError(false);
+            setErrorMessage("");
+          }}
+          className={styles.error}
+          animate={{ transform: "translate(-50%,-50%) scale(1.75)" }}
           transition={{
             duration: 0.5,
           }}

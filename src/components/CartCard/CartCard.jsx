@@ -55,7 +55,7 @@ export default function CartCard({ product }) {
       setTimeout(() => {
         setError(false);
         setErrorMessage("");
-      }, 3000);
+      }, 2000);
     }
   }, [error]);
   if (isLoading) {

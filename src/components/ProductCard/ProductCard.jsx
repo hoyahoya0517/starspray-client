@@ -6,64 +6,56 @@ import { motion } from "framer-motion";
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const width = document.querySelector("#root").clientWidth;
-  const [click, setClick] = useState(false);
+  const [hover, setHover] = useState(false);
+  const [touch, setTouch] = useState(false);
   const handleClick = () => {
-    if (!click) return setClick(true);
     navigate(`/product/${product.id}`);
   };
   return (
     <motion.div
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
+      onTouchStart={() => {
+        setTouch(true);
+      }}
+      onTouchEnd={() => {
+        setTouch(false);
+      }}
+      whileHover={{
+        scale: width > 767 ? 1.2 : 1.15,
+        transition: { duration: 0.3 },
+      }}
       animate={
-        click && {
-          scale: width > 767 ? 1.3 : 1.1,
-          transition: { duration: 0.3 },
-        }
+        touch
+          ? {
+              scale: width > 767 ? 1.2 : 1.15,
+              transition: { duration: 0.2 },
+            }
+          : {}
       }
       onClick={handleClick}
       className={styles.productCard}
     >
-      <motion.div
-        animate={
-          click && {
-            opacity: 0.8,
-            transition: { duration: 0.2 },
-          }
-        }
-        className={styles.productImg}
-      >
+      <div className={styles.productImg}>
         <img src={`${product.img[0]}`} />
-      </motion.div>
-      {click ? (
-        product.qty > 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={
-              click && {
-                opacity: 1,
-                transition: { duration: 0.3, delay: 0.2 },
-              }
+      </div>
+      {hover && product.qty < 1 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={
+            hover && {
+              opacity: 1,
+              transition: { duration: 0.3, delay: 0.2 },
             }
-            className={styles.hoverDetail}
-          >
-            <span>{product.name}</span>
-            <span>{`₩${product.price}`}</span>
-          </motion.div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={
-              click && {
-                opacity: 1,
-                transition: { duration: 0.3, delay: 0.2 },
-              }
-            }
-            className={styles.soldout}
-          >
-            <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1707481140/letter/soldout2_gvcesy.png" />
-          </motion.div>
-        )
-      ) : (
-        <></>
+          }
+          className={styles.soldout}
+        >
+          <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1707481140/letter/soldout2_gvcesy.png" />
+        </motion.div>
       )}
     </motion.div>
   );

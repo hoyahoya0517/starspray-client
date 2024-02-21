@@ -39,6 +39,9 @@ const queryClient = new QueryClient({
         console.log(error.message);
       },
     },
+    mutations: {
+      retry: false,
+    },
   },
 });
 root.render(

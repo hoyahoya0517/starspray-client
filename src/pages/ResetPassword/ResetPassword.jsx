@@ -32,14 +32,6 @@ export default function ResetPassword() {
     window.scrollTo(0, 0);
     dispatch(navOff());
   }, []);
-  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        setError(false);
-        setErrorMessage("");
-      }, 3000);
-    }
-  }, [error]);
   return (
     <div className={styles.login}>
       <div className={styles.loginWrap}>
@@ -60,19 +52,16 @@ export default function ResetPassword() {
             <button type="submit">RESET PASSWORD</button>
             {error && (
               <motion.div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  fontSize: "2.5rem",
-                  zIndex: "2",
-                  color: "#fff54f",
-                  position: "fixed",
-                  top: "-20%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
+                onClick={() => {
+                  setError(false);
+                  setErrorMessage("");
                 }}
-                animate={{ top: "20%", left: "50%" }}
+                onTap={() => {
+                  setError(false);
+                  setErrorMessage("");
+                }}
+                className={styles.error}
+                animate={{ transform: "translate(-50%,-50%) scale(1.75)" }}
                 transition={{
                   duration: 0.5,
                 }}
