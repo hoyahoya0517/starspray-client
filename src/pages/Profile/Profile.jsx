@@ -42,6 +42,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -64,7 +65,13 @@ export default function Profile() {
     },
     onError(error) {
       setErrorMessage("로그아웃에 실패했습니다");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     },
   });
   const updateMutate = useMutation({
@@ -75,10 +82,22 @@ export default function Profile() {
       setNewPassword("");
       setErrorMessage("사용자 정보가 변경되었습니다");
       setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     },
     onError(error) {
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     },
   });
   const handleName = (e) => {
@@ -103,17 +122,30 @@ export default function Profile() {
     logoutMutate.mutate();
   };
   const handleUpdate = async (e) => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
     e.preventDefault();
     if (zipcode && !address2) {
       setErrorMessage("상세주소를 입력하세요");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
     if ((oldPassword && !newPassword) || (!oldPassword && newPassword)) {
       setErrorMessage(
         "비밀번호 변경 시 원래 비밀번호와 변경할 비밀번호를 입력하세요"
       );
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
     try {
       const user = {
@@ -128,7 +160,13 @@ export default function Profile() {
       updateMutate.mutate(user);
     } catch (error) {
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
 

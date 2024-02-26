@@ -1,6 +1,6 @@
 import PortOne from "@portone/browser-sdk/v2";
 import { mongoNewOrder, orderComplete } from "../api/payment";
-import { checkCart, payCompleteCart } from "../api/product";
+import { checkCart } from "../api/product";
 import dayjs from "dayjs";
 
 export async function pay(
@@ -37,6 +37,7 @@ export async function pay(
     traking: "",
   };
   await checkCart(cart);
+  await mongoNewOrder(order);
   const response = await PortOne.requestPayment({
     // 고객사 storeId로 변경해주세요.
     storeId: "store-d53f97da-1eb8-4d33-b8a5-f835292f5668",
@@ -59,11 +60,11 @@ export async function pay(
       },
       zipcode: zipcode,
     },
+    redirectUrl: `http://localhost:3000/cart/complete`,
   });
   if (response.code != null) {
+    await orderComplete(paymentId, false);
     throw Error("결제에 문제가 발생했습니다");
   }
-  await mongoNewOrder(order);
-  await orderComplete(paymentId);
-  await payCompleteCart(cart);
+  await orderComplete(paymentId, true);
 }

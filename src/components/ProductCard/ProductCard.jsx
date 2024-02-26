@@ -49,7 +49,7 @@ export default function ProductCard({ product }) {
           animate={
             hover && {
               opacity: 1,
-              transition: { duration: 0.3, delay: 0.2 },
+              transition: { duration: 0.3 },
             }
           }
           className={styles.soldout}

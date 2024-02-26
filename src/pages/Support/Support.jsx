@@ -28,6 +28,7 @@ export default function Support() {
   const [moon, setMoon] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -41,7 +42,10 @@ export default function Support() {
     setMoon(e.target.value);
   };
   const handleForm = async (e) => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
+    setErrorMessage("문의 내용 접수 중...");
+    await setError(true);
     e.preventDefault();
     try {
       await sendMoon(name, email, paymentId, moon);
@@ -50,11 +54,23 @@ export default function Support() {
       setPaymentId("");
       setMoon("");
       setErrorMessage("문의 내용이 접수되었습니다");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     } catch (error) {
       const message = error.message;
       setErrorMessage(message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   useEffect(() => {

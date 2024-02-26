@@ -37,7 +37,7 @@ input,
 textarea,
 button {
   font-size: 1rem;
-  font-family: "NotoSansKR", "Poppins", sans-serif !important;
+  font-family: "NotoSansKR", "Poppins", "Apple SD Gothic Neo" sans-serif !important;
   appearance: none;
   border-radius: 0;
   -moz-appearance: none;

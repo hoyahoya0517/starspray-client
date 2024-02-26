@@ -15,6 +15,7 @@ export default function Register() {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -28,7 +29,8 @@ export default function Register() {
     setPhone(e.target.value);
   };
   const handleRegister = async (e) => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
     e.preventDefault();
     try {
       const user = {
@@ -41,7 +43,13 @@ export default function Register() {
       return navigate("/register/complete");
     } catch (error) {
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   useEffect(() => {
@@ -91,6 +99,7 @@ export default function Register() {
                 maxLength="20"
                 type="password"
                 id="password"
+                autoComplete="off"
               />
             </div>
           </div>

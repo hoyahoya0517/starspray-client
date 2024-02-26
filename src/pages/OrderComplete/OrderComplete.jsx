@@ -1,22 +1,45 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./OrderComplete.module.css";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { orderComplete } from "../../api/payment";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function OrderComplete() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { state } = useLocation();
-  const payComplete = state?.payComplete ? state.payComplete : false;
-  const name = state?.name ? state.name : "who?";
-  const cart = state?.cart ? state.cart : [];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [payState, setPayState] = useState("결제 진행중..");
+  const paymentId = searchParams.get("paymentId");
+  const code = searchParams.get("code");
+  const payComplete = state?.payComplete;
   useEffect(() => {
-    if (!payComplete) return navigate("/");
-  }, [payComplete]);
+    async function mobilePayComplete() {
+      const success = code === null ? true : false;
+      try {
+        await orderComplete(paymentId, success);
+        await queryClient.invalidateQueries();
+        return setPayState("결제가 완료되었습니다");
+      } catch (error) {
+        const message = error.message || "결제에 문제가 발생했습니다";
+        setPayState(message);
+      }
+    }
+    if (paymentId) mobilePayComplete();
+  }, [paymentId]);
+  useEffect(() => {
+    if (payComplete) {
+      setPayState("결제가 완료되었습니다");
+    } else if (payComplete === undefined && paymentId === null) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className={styles.orderComplete}>
-      <div className={styles.orderCompleteWrap}>
-        <span>Thanks to</span>
-        <span>{name}</span>
+      <div className={styles.left}>
+        <h1>{payState}</h1>
+      </div>
+      <div className={styles.right}>
         <span
           onClick={() => {
             navigate("/");
@@ -24,7 +47,8 @@ export default function OrderComplete() {
         >
           Home
         </span>
-        <div>
+      </div>
+      {/* <div>
           {cart &&
             cart.map((product) => {
               const width = document.querySelector("#root").clientWidth;
@@ -58,8 +82,7 @@ export default function OrderComplete() {
                 </motion.div>
               );
             })}
-        </div>
-      </div>
+        </div> */}
     </div>
   );
 }

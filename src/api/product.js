@@ -43,11 +43,3 @@ export async function checkCart(cart) {
     throw Error(error.response.data.message);
   }
 }
-
-export async function payCompleteCart(cart) {
-  try {
-    await axios.post("/product/cart/complete", { cart });
-  } catch (error) {
-    throw Error(error.response.data.message);
-  }
-}

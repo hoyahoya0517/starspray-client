@@ -8,9 +8,11 @@ export async function mongoNewOrder(order) {
   }
 }
 
-export async function orderComplete(paymentId) {
+export async function orderComplete(paymentId, success) {
   try {
-    await axios.post("/payment/complete", { paymentId });
+    await axios.get(
+      `/payment/complete?paymentId=${paymentId}&success=${success}`
+    );
   } catch (error) {
     throw Error(error.response.data.message);
   }

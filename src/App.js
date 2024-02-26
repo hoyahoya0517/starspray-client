@@ -27,8 +27,9 @@ function App() {
     },
   });
 
+  // axios.defaults.baseURL = "https://server.star-spray.com";
   axios.defaults.withCredentials = true;
-  axios.defaults.headers.common["_csrf-token"] = csrfToken;
+  axios.defaults.headers.common["startoken"] = csrfToken;
 
   const body = document.querySelector("body");
   useEffect(() => {

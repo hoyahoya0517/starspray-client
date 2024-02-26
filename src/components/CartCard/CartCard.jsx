@@ -18,6 +18,7 @@ export default function CartCard({ product }) {
   const [qty, setQty] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const [price, setPrice] = useState(
     Number(product.qty) <= 0 ? "SOLD OUT" : `₩${product.price}`
   );
@@ -30,18 +31,31 @@ export default function CartCard({ product }) {
     },
     onError(error) {
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     },
   });
   const qtyHandle = async (su) => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
     setErrorMessage("");
     try {
       const productId = product.id;
       qtyMutate.mutate({ productId, su });
     } catch (error) {
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   useEffect(() => {
@@ -50,14 +64,6 @@ export default function CartCard({ product }) {
       setQty(foundCart ? foundCart.qty : "");
     }
   }, [user]);
-  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        setError(false);
-        setErrorMessage("");
-      }, 2000);
-    }
-  }, [error]);
   if (isLoading) {
     return <div className={styles.cartCard}></div>;
   }

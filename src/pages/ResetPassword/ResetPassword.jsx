@@ -12,12 +12,14 @@ export default function ResetPassword() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
 
   const handleReset = async (e) => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
     e.preventDefault();
     try {
       await resetPassword(email);
@@ -25,7 +27,13 @@ export default function ResetPassword() {
     } catch (error) {
       const message = error.message;
       setErrorMessage(message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   useEffect(() => {

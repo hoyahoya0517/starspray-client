@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./ProductDetail.module.css";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import NotFoundComponent from "../../components/NotFoundComponent/NotFoundComponent";
 
 export default function ProductDetail() {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -28,6 +27,7 @@ export default function ProductDetail() {
   });
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const cartMutate = useMutation({
     mutationFn: (id) => mongoAddCart(id),
     onSuccess() {
@@ -35,28 +35,59 @@ export default function ProductDetail() {
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       queryClient.resetQueries({ queryKey: ["cart"] });
       setErrorMessage("장바구니에 상품을 담았습니다");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     },
     onError(error) {
       if (error.message === "Authentication Error") {
         setErrorMessage("로그인이 필요합니다");
-        return setError(true);
+        setError(true);
+        return setTimeOut(
+          setTimeout(() => {
+            setError(false);
+            setErrorMessage("");
+          }, 2000)
+        );
       }
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     },
   });
-  const handleAddCart = () => {
-    setError(false);
+  const handleAddCart = async () => {
+    clearTimeout(timeOut);
+    await setError(false);
     try {
       cartMutate.mutate(id);
     } catch (error) {
       if (error.message === "Authentication Error") {
         setErrorMessage("로그인이 필요합니다");
-        return setError(true);
+        setError(true);
+        return setTimeOut(
+          setTimeout(() => {
+            setError(false);
+            setErrorMessage("");
+          }, 2000)
+        );
       }
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   useEffect(() => {

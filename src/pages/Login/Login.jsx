@@ -22,6 +22,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -40,11 +41,18 @@ export default function Login() {
     },
     onError(error) {
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     },
   });
   const handleLogin = async (e) => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
     e.preventDefault();
     try {
       const user = {
@@ -54,7 +62,13 @@ export default function Login() {
       loginMutate.mutate(user);
     } catch (error) {
       setErrorMessage(error.message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   useEffect(() => {
@@ -97,6 +111,7 @@ export default function Login() {
                 maxLength="20"
                 type="password"
                 id="password"
+                autoComplete="off"
               />
             </div>
           </div>

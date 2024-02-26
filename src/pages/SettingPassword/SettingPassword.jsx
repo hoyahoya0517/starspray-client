@@ -13,23 +13,37 @@ export default function SettingPassword() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const [change, setChange] = useState(false);
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
 
   const handleSetting = async (e) => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
     e.preventDefault();
     try {
       await settingPassword(password, token);
       setErrorMessage("비밀번호가 변경되었습니다");
       setChange(true);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     } catch (error) {
       const message = error.message;
       setErrorMessage(message);
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   useEffect(() => {
@@ -53,6 +67,7 @@ export default function SettingPassword() {
                 maxLength="20"
                 type="password"
                 id="password"
+                autoComplete="off"
               />
             </div>
           </div>

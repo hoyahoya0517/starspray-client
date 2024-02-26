@@ -2,8 +2,8 @@ import styles from "./Cart.module.css";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { navOff } from "../../redux/redux";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserInfo, mongoCompleteCart, mongoMe } from "../../api/auth";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserInfo } from "../../api/auth";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { useNavigate } from "react-router-dom";
 import { getProductByCart } from "../../api/product";
@@ -37,20 +37,10 @@ export default function Cart() {
       return data;
     },
   });
-  const {
-    isLoading: isLoading3,
-    data: user,
-    isError3,
-  } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const data = await mongoMe();
-      return data;
-    },
-  });
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [timeOut, setTimeOut] = useState();
   const [firstInfo, setFirstInfo] = useState(true);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -64,17 +54,6 @@ export default function Cart() {
   const [delivery, setDelivery] = useState(3000);
   const [total, setTotal] = useState(0);
   const [agree, setAgree] = useState(false);
-  const userInfoMutate = useMutation({
-    mutationFn: () => mongoCompleteCart(),
-    onSuccess() {
-      queryClient.invalidateQueries();
-    },
-    onError(error) {
-      const message = error.message;
-      setErrorMessage(message);
-      return setError(true);
-    },
-  });
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -91,18 +70,37 @@ export default function Cart() {
     setAgree((prev) => !prev);
   };
   const handlePay = async () => {
-    setError(false);
+    clearTimeout(timeOut);
+    await setError(false);
     if (!userInfo?.cart || cartLength === 0) {
       setErrorMessage("장바구니에 상품을 담아주세요");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
     if (!name || !phone || !email || !zipcode || !address1 || !address2) {
       setErrorMessage("결제정보를 입력해 주세요");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
     if (!agree) {
       setErrorMessage("약관에 동의해주세요");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
     const customerId = userInfo?.id;
     if (!customerId) return;
@@ -121,14 +119,19 @@ export default function Cart() {
         total,
         customerId
       );
-      userInfoMutate.mutate();
-      navigate("./complete", { state: { payComplete: true, name, cart } });
+      navigate("./complete", { state: { payComplete: true } });
     } catch (error) {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       const message = error.message;
       if (message) setErrorMessage(message);
       else setErrorMessage("결제에 문제가 발생했습니다");
-      return setError(true);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
     }
   };
   function SearchAddress() {
