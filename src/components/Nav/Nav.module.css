@@ -96,7 +96,7 @@
 .logo img {
   cursor: pointer;
   height: 32px;
-  width: 100%;
+  width: 32px;
   object-fit: cover;
 }
 .add {
@@ -111,10 +111,4 @@
 
 /* 모바일 */
 @media (max-width: 767px) {
-  .logo img {
-    cursor: pointer;
-    height: 32px;
-    width: auto;
-    object-fit: cover;
-  }
 }
