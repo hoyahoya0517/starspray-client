@@ -113,8 +113,8 @@
 @media (max-width: 767px) {
   .logo img {
     cursor: pointer;
-    max-width: 100%;
-    height: auto;
+    height: 32px;
+    width: auto;
     object-fit: cover;
   }
 }
