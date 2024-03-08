@@ -85,7 +85,7 @@ export default function Support() {
       <div className={styles.left}>
         <div className={styles.supportWrap}>
           <div className={styles.title}>
-            <span>문의 하기</span>
+            <span>문의하기</span>
           </div>
           <form onSubmit={handleForm}>
             <div className={styles.mainInput}>

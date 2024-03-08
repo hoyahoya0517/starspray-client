@@ -97,7 +97,7 @@ export default function CartCard({ product }) {
             }}
             type="button"
           >
-            <FiMinus size={12} />
+            <FiMinus style={{ color: "black" }} size={12} />
           </button>
           <button
             onClick={() => {
@@ -105,7 +105,7 @@ export default function CartCard({ product }) {
             }}
             type="button"
           >
-            <FiPlus size={12} />
+            <FiPlus style={{ color: "black" }} size={12} />
           </button>
         </div>
         <div>

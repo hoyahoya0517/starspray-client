@@ -106,6 +106,8 @@ export default function Cart() {
     if (!customerId) return;
     const userCart = userInfo?.cart;
     if (!userCart) return;
+    setErrorMessage("결제 진행 중...");
+    setError(true);
     try {
       await pay(
         userCart,
@@ -119,6 +121,7 @@ export default function Cart() {
         total,
         customerId
       );
+      queryClient.invalidateQueries();
       navigate("./complete", { state: { payComplete: true } });
     } catch (error) {
       queryClient.invalidateQueries({ queryKey: ["orders"] });

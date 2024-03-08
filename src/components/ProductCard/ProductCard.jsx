@@ -19,6 +19,7 @@ export default function ProductCard({ product }) {
       onMouseLeave={() => {
         setHover(false);
       }}
+      onTap={handleClick}
       onTouchStart={() => {
         setTouch(true);
       }}
@@ -43,11 +44,11 @@ export default function ProductCard({ product }) {
       <div className={styles.productImg}>
         <img src={`${product.img[0]}`} />
       </div>
-      {hover && product.qty < 1 && (
+      {(hover || touch) && product.qty < 1 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={
-            hover && {
+            (hover || touch) && {
               opacity: 1,
               transition: { duration: 0.3 },
             }

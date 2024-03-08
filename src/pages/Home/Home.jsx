@@ -2,7 +2,6 @@ import styles from "./Home.module.css";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { navOff } from "../../redux/redux";
-import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {

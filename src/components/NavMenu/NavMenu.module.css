@@ -17,7 +17,7 @@
 }
 .xWrap {
   width: 100%;
-  height: 70px;
+  height: 90px;
 }
 .x {
   z-index: 8888;
@@ -25,6 +25,7 @@
   height: 50px;
   margin-top: 20px;
   margin-left: calc(100vw / 48);
+  margin-bottom: 20px;
   padding: 0 calc(100vw / 48);
   display: flex;
   align-items: center;
@@ -41,14 +42,22 @@
   border-radius: 0;
   text-align: center;
   background-color: transparent;
-  padding: 5px;
+  padding: 4px;
 }
 .top {
   display: flex;
   flex-direction: column;
   padding-left: calc(100vw / 24);
-  font-weight: 700;
   letter-spacing: 2px;
+  font-weight: 700;
+}
+.top div {
+  display: flex;
+}
+.top span {
+  background: var(--star-background);
+  background-size: 100%;
+  padding: 0 5px;
 }
 .starSpray {
   font-size: 5rem;
@@ -60,6 +69,7 @@
 .menu_menu {
   font-size: 3rem;
   cursor: pointer;
+  margin: 2px 0;
 }
 
 /* 모바일 */

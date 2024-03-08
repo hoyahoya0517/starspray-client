@@ -5,6 +5,7 @@
 }
 .left {
   display: flex;
+  width: 100%;
 }
 .left img {
   width: 100%;

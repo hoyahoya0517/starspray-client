@@ -29,6 +29,10 @@ body {
 #root {
   height: 100%;
   --yellow-color: #fff54f;
+  --green-color: #1ba11a;
+  --star-background: #1ba11a
+    url("https://res.cloudinary.com/hoyahoya/image/upload/v1702882191/letter/tile_vkvmea.png")
+    top left repeat;
 }
 a {
   text-decoration: none;

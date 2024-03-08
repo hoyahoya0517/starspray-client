@@ -26,6 +26,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: calc((100vw / 48) - 11px);
 }
 .menu_listButton {
   display: flex;
@@ -102,6 +103,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: calc((100vw / 48) - 11px);
 }
 .add_margin {
   width: 30px;
@@ -109,4 +111,10 @@
 
 /* 모바일 */
 @media (max-width: 767px) {
+  .logo img {
+    cursor: pointer;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }

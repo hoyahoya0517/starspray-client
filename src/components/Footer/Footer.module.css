@@ -1,6 +1,23 @@
 .footer {
   position: relative;
-  background-color: aqua;
-  height: 100px;
+  background-color: transparent;
+  height: 74px;
   z-index: 2222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.content {
+  padding: 0 20px;
+}
+.agree {
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .footer {
+    height: 150px;
+    font-size: 0.8rem;
+  }
 }

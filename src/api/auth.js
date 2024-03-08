@@ -21,6 +21,10 @@ export async function mongoLogout() {
   await axios.post("/auth/logout");
 }
 
+export async function mongoDelete() {
+  await axios.delete("/auth/delete");
+}
+
 /*----------------------------------*/
 
 export async function getUserInfo() {

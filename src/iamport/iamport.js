@@ -60,7 +60,7 @@ export async function pay(
       },
       zipcode: zipcode,
     },
-    redirectUrl: `http://localhost:3000/cart/complete`,
+    redirectUrl: `http:localhost:8080/cart/complete`,
   });
   if (response.code != null) {
     await orderComplete(paymentId, false);

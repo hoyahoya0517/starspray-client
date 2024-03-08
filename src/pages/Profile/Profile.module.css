@@ -140,6 +140,7 @@
 }
 .logout {
   display: flex;
+  margin-bottom: 20px;
 }
 .logout span {
   font-size: 1rem;
@@ -147,6 +148,19 @@
   text-underline-offset: 0.3em;
   cursor: pointer;
   font-weight: 400;
+}
+.delete {
+  display: flex;
+}
+.delete span {
+  font-size: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+  font-weight: 400;
+}
+.delete span:hover {
+  color: red;
 }
 .error {
   display: flex;

@@ -179,7 +179,7 @@ export default function AdminOrderCard({ order }) {
           <span>{order.customerId}</span>
         </div>
         <div className={styles.main_div}>
-          <span>complete</span>
+          <span style={{ color: complete ? "blue" : "red" }}>complete</span>
           <input value={complete} onChange={handleComplete} />
         </div>
         <div className={styles.main_div}>

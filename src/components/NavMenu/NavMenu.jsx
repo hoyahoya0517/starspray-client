@@ -21,7 +21,7 @@ export default function NavMenu() {
         <div className={styles.xWrap}>
           <div className={styles.x}>
             <span className={styles.menu_button} onClick={navStateOff}>
-              <BsXLg style={{ color: "black" }} size={20} />
+              <BsXLg style={{ color: "black" }} size={22} />
             </span>
           </div>
         </div>

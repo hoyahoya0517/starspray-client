@@ -6,6 +6,7 @@ import { navOff } from "../../redux/redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getUserInfo,
+  mongoDelete,
   mongoGetOrders,
   mongoLogout,
   mongoUpdateProfile,
@@ -100,6 +101,23 @@ export default function Profile() {
       );
     },
   });
+  const deleteMutate = useMutation({
+    mutationFn: () => mongoDelete(),
+    onSuccess() {
+      queryClient.removeQueries();
+      navigate("/");
+    },
+    onError(error) {
+      setErrorMessage(error.message);
+      setError(true);
+      return setTimeOut(
+        setTimeout(() => {
+          setError(false);
+          setErrorMessage("");
+        }, 2000)
+      );
+    },
+  });
   const handleName = (e) => {
     setName(e.target.value);
   };
@@ -167,6 +185,12 @@ export default function Profile() {
           setErrorMessage("");
         }, 2000)
       );
+    }
+  };
+  const handleDelete = () => {
+    if (window.confirm("정말 탈퇴하시겠습니까? (데이터 복구 불가)")) {
+      deleteMutate.mutate();
+    } else {
     }
   };
 
@@ -368,6 +392,9 @@ export default function Profile() {
           </form>
           <div className={styles.logout}>
             <span onClick={handleLogout}>Logout</span>
+          </div>
+          <div className={styles.delete}>
+            <span onClick={handleDelete}>회원탈퇴</span>
           </div>
         </div>
       </div>

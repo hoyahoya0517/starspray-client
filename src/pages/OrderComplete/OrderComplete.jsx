@@ -9,7 +9,7 @@ export default function OrderComplete() {
   const queryClient = useQueryClient();
   const { state } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [payState, setPayState] = useState("결제 진행중..");
+  const [payState, setPayState] = useState("결제 진행중...");
   const paymentId = searchParams.get("paymentId");
   const code = searchParams.get("code");
   const payComplete = state?.payComplete;
