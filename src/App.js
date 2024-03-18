@@ -11,14 +11,14 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 function App() {
   const navState = useSelector((state) => state.nav);
-  const { data: user, isError } = useQuery({
+  const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const data = await mongoMe();
       return data;
     },
   });
-  const { data: csrfToken, isError2 } = useQuery({
+  const { data: csrfToken } = useQuery({
     queryKey: ["csrfToken"],
     queryFn: async () => {
       const data = await getCsrfToken();
