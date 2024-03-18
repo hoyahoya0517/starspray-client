@@ -49,9 +49,19 @@ export default function AdminOrderCard({ order }) {
     },
   });
   const orderRefundMutate = useMutation({
-    mutationFn: (paymentId) => mongoAdminRefundOrder(paymentId),
-    onSuccess() {},
-    onError() {},
+    mutationFn: ({ amount, paymentId }) =>
+      mongoAdminRefundOrder(amount, paymentId),
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["adminOrders"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["order"] });
+      setErrorMessage("환불 완료(refund, shipping을 수정해주세요)");
+      return setError(true);
+    },
+    onError(error) {
+      setErrorMessage(error.message);
+      return setError(true);
+    },
   });
   const handleUpdateOrder = async () => {
     setError(false);
@@ -87,7 +97,8 @@ export default function AdminOrderCard({ order }) {
   };
   const handleRefundOrder = () => {
     setError(false);
-    orderRefundMutate.mutate(order.paymentId);
+    let amount = prompt("얼마를 환불합니까?");
+    orderRefundMutate.mutate({ amount, paymentId: order.paymentId });
   };
   const handleName = (e) => {
     setName(e.target.value);

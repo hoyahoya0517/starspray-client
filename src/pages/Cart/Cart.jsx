@@ -121,8 +121,6 @@ export default function Cart() {
         total,
         customerId
       );
-      queryClient.invalidateQueries();
-      navigate("./complete", { state: { payComplete: true } });
     } catch (error) {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       const message = error.message;
@@ -136,6 +134,8 @@ export default function Cart() {
         }, 2000)
       );
     }
+    queryClient.invalidateQueries();
+    navigate("./complete", { state: { payComplete: true } });
   };
   function SearchAddress() {
     const handleComplete = (data) => {

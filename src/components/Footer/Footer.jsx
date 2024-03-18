@@ -6,10 +6,11 @@ export default function Footer() {
   return (
     <div className={styles.footer}>
       <div className={styles.content}>
-        STAR SPRAY BUSINESS LICENSE: 568-03-02882 ADDRESS: 43, SONGPA-DAERO
-        28-GIL, SONGPA-GU, SEOUL, REPUBLIC OF KOREA
+        STAR SPRAY BUSINESS LICENSE: 568-03-02882 MAIL ORDER LICENSE :
+        2024-서울송파-0871 ADDRESS: 43, SONGPA-DAERO 28-GIL, SONGPA-GU, SEOUL,
+        REPUBLIC OF KOREA
         <br />
-        CEO : LEEGEONHO CAll : 02-6486-6828 EMAIL : info.starspray.gmail@com{" "}
+        CEO : LEEGEONHO CAll : 010-6272-6828 EMAIL : help.starspray@gmail.com{" "}
         <span
           className={styles.agree}
           onClick={() => {

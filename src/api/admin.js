@@ -49,9 +49,9 @@ export async function mongoAdminDeleteOrder(orderId) {
   }
 }
 
-export async function mongoAdminRefundOrder(paymentId) {
+export async function mongoAdminRefundOrder(amount, paymentId) {
   try {
-    await axios.post(`/admin/order/refund`, { paymentId });
+    await axios.post(`/admin/order/refund`, { amount, paymentId });
   } catch (error) {
     throw Error(error.response.data.message);
   }

@@ -1,7 +1,7 @@
 .footer {
   position: relative;
   background-color: transparent;
-  height: 74px;
+  height: 104px;
   z-index: 2222;
   display: flex;
   justify-content: center;
@@ -17,7 +17,7 @@
 
 @media (max-width: 767px) {
   .footer {
-    height: 150px;
-    font-size: 0.8rem;
+    height: 158px;
+    font-size: 0.6rem;
   }
 }

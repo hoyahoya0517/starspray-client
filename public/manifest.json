@@ -3,19 +3,14 @@
   "name": "Star Spray",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://res.cloudinary.com/hoyahoya/image/upload/v1710141096/letter/logo/logo_32_fpbx97.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "https://res.cloudinary.com/hoyahoya/image/upload/v1710141096/letter/logo/logo_144_sjjqqr.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "144x144"
     }
   ],
   "start_url": ".",

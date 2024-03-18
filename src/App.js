@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getCsrfToken, mongoMe } from "./api/auth";
 import axios from "axios";
 import { useEffect } from "react";
@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 function App() {
-  const queryClient = useQueryClient();
   const navState = useSelector((state) => state.nav);
   const { data: user, isError } = useQuery({
     queryKey: ["user"],

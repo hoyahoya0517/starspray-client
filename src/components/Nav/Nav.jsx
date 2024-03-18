@@ -47,7 +47,7 @@ export default function Nav() {
             navigate("/");
           }}
         >
-          <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1709825923/letter/logo_ygww3j.png" />
+          <img src="https://res.cloudinary.com/hoyahoya/image/upload/v1710141096/letter/logo/logo_144_sjjqqr.png" />
         </div>
         <div className={styles.add}>
           <div className={styles.add_margin}></div>

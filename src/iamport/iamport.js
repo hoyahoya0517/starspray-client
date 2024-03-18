@@ -42,11 +42,12 @@ export async function pay(
     // 고객사 storeId로 변경해주세요.
     storeId: "store-d53f97da-1eb8-4d33-b8a5-f835292f5668",
     paymentId: paymentId,
-    orderName: "오테가미",
+    orderName: "Star Spray",
     totalAmount: total,
     currency: "CURRENCY_KRW",
-    channelKey: "channel-key-60d5c782-671f-4231-90e6-633d5361bede",
-    pgProvider: "KSNET",
+    channelKey: "channel-key-0f29f962-e095-4190-95bb-f329f44eca98",
+    pgProvider: "NICE_V2",
+    pg: "nice_v2.nictest00m",
     payMethod: "CARD",
     customer: {
       customerId: customerId,

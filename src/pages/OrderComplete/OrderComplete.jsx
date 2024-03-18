@@ -3,16 +3,23 @@ import styles from "./OrderComplete.module.css";
 import { useEffect, useState } from "react";
 import { orderComplete } from "../../api/payment";
 import { useQueryClient } from "@tanstack/react-query";
+import { navOff } from "../../redux/redux";
+import { useDispatch } from "react-redux";
 
 export default function OrderComplete() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const { state } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [payState, setPayState] = useState("결제 진행중...");
   const paymentId = searchParams.get("paymentId");
   const code = searchParams.get("code");
   const payComplete = state?.payComplete;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(navOff());
+  }, []);
   useEffect(() => {
     async function mobilePayComplete() {
       const success = code === null ? true : false;
