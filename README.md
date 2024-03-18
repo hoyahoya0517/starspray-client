@@ -1,4 +1,5 @@
-# Star Spray
+# Star Spray 
+<img src="https://res.cloudinary.com/hoyahoya/image/upload/v1710141096/letter/logo/logo_144_sjjqqr.png" />
 2024.03.18<br>
 REACT와 NODEJS를 이용하여 실제 쇼핑몰을 제작<br>
 # Features
