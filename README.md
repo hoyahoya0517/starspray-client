@@ -5,6 +5,8 @@ REACT와 NODEJS를 이용하여 실제 쇼핑몰을 제작<br>
 실제로 운영되는 사이트<br>
 AWS의 S3와 CLOUDFRONT를 이용하여 클라이언트 배포<br>
 도메인은 AWS의 ROUTE53을 이용<br>
+<br>
+AWS의 ElASTIC BEANSTALK를 이용하여 서버 배포<br>
 # Skills & Tech Stack
 REACT<br>
 REACT-QUERY<br>
